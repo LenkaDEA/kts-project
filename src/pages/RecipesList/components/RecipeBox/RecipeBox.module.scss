@@ -1,0 +1,61 @@
+@use 'styles/variables';
+
+.container {
+    padding-left: 10vw;
+    padding-right: 10vw;
+}
+
+.search_container {
+    width: 100%;
+    display: flex;
+    gap: var(--space-l);
+    justify-content: space-between;
+
+}
+
+.input {
+    width: 100%;
+}
+
+.categories {
+    margin-top: var(--space-l);
+    display: flex;
+    justify-content: end;
+
+}
+
+.recipe_list {
+    margin-top: var(--space-xxl);
+    width: 100vw;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 80px;
+    width: 100%;
+}
+
+.total_time {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--space-xxs);
+}
+
+.pagination_container {
+    margin-top: var(--space-xxl);
+    margin-bottom: var(--space-xl);
+    display: flex;
+    gap: 18px;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+}
+
+.icon_rotate {
+    transform: scaleX(-1);
+}
+
+.button_pag {
+    background: transparent;
+    border: 0px;
+    cursor: pointer;
+}
