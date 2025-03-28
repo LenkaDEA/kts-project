@@ -1,0 +1,30 @@
+@use 'styles/variables';
+@use 'styles/Roboto/fonts';
+
+html {
+  background-color: var(--global-bg);
+}
+
+body {
+  font-family: 'Roboto';
+  margin: 0px;
+}
+
+.main_app {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.bgpicture_div {
+  position: absolute;
+  pointer-events: none;
+  z-index: -1;
+  width: 100%;
+  display: flex;
+  justify-content: end;
+}
+
+.bgpicture {
+  pointer-events: none;
+}
