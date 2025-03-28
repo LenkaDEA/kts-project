@@ -1,0 +1,16 @@
+@use 'styles/variables';
+
+.grid_info {
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(3, 100px);
+    grid-template-rows: repeat(2, 50px);
+    gap: 100px;
+}
+
+.info_box {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xxs);
+    align-items: center;
+}
