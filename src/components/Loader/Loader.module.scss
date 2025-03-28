@@ -1,0 +1,19 @@
+.loader {
+    margin: 0;
+    fill: var(--loader-bg);
+    animation: rotate 1.5s linear infinite;
+}
+
+.loader_color_text {
+    fill: var(--button-primary-text);
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}

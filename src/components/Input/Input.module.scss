@@ -1,0 +1,33 @@
+.input_container {
+    border-width: 1px;
+    border-style: solid;
+    border-color: var(--input-border);
+    background-color: var(--input-bg);
+
+    padding-top: var(--space-s);
+    padding-right: var(--space-xs);
+    padding-bottom: var(--space-xxs);
+    padding-left: var(--space-xs);
+
+    display: flex;
+    align-items: center;
+    gap: var(--space-xxs);
+    color: var(--input-placeholder);
+
+    border-radius: var(--border-radius);
+}
+
+.input_container:focus-within {
+    border-width: 1px;
+    border-style: solid;
+    border-color: var(--input-border-focus);
+}
+
+.my_input {
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    border-color: transparent;
+    outline-color: transparent;
+    font-size: 16px;
+}

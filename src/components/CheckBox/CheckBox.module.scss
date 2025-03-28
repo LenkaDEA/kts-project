@@ -1,0 +1,44 @@
+.custom_checkbox {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+
+    background-color: var(--checkbox-bg);
+    border: 1px solid var(--checkbox-border);
+}
+
+.checkbox_input {
+    position: absolute;
+    opacity: 0;
+    width: 40px;
+    height: 40px;
+    margin: 0;
+    cursor: pointer;
+    z-index: 3;
+
+}
+
+.checkbox_icon {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    margin: -1px;
+    z-index: 2;
+}
+
+.custom_checkbox:hover {
+    border: 1px solid var(--checkbox-border-hover);
+}
+
+.custom_checkbox__disabled {
+    background-color: var(--checkbox-border-disabled);
+    border: 1px solid transparent;
+
+}
+
+.custom_checkbox__disabled:hover {
+    background-color: var(--checkbox-border-disabled);
+    border: 1px solid transparent;
+}

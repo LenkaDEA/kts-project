@@ -1,0 +1,28 @@
+@use 'styles/variables';
+
+.icon {
+    margin: 0;
+    fill: var(--text-primary);
+    stroke: var(--text-primary);
+    align-items: center;
+}
+
+.icon_color_primary {
+    fill: var(--icon-primary-bg);
+    stroke: var(--icon-primary-bg)
+}
+
+.icon_color_secondary {
+    fill: var(--icon-secondary-bg);
+    stroke: var(--icon-secondary-bg);
+}
+
+.icon_color_accent {
+    fill: var(--icon-accent-bg);
+    stroke: var(--icon-accent-bg);
+}
+
+.icon_color_dark {
+    fill: var(--icom-dark-bg);
+    stroke: var(--icom-dark-bg);
+}
