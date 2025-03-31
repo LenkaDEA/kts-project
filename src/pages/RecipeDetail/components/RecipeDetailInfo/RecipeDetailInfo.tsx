@@ -1,39 +1,34 @@
+import React from "react";
+
 import Text from "components/Text";
-
 import styles from "./RecipeDetailInfo.module.scss"
-
 import { useRecipeInfoContext } from "pages/RecipeDetail/RecipeDetail";
 
-import React from "react";
+type InfoItemType = {
+    title: string;
+    value: number | undefined;
+    unit?: string;
+};
 
 const RecipeDetailInfo: React.FC = () => {
     const recipeInfoContext = useRecipeInfoContext();
 
+    const InfoItem: InfoItemType[] = [
+        { title: "Preparation", value: recipeInfoContext.recipeCont.preparationTime, unit: " minutes" },
+        { title: "Cooking", value: recipeInfoContext.recipeCont.cookingTime, unit: " minutes" },
+        { title: "Total", value: recipeInfoContext.recipeCont.totalTime, unit: " minutes" },
+        { title: "Likes", value: recipeInfoContext.recipeCont.likes },
+        { title: "Servings", value: recipeInfoContext.recipeCont.servings, unit: " servings" },
+        { title: "Ratings", value: recipeInfoContext.recipeCont.rating },
+    ];
+
     return (<div className={styles[`info-grid`]}>
-        <div className={styles[`info-grid__info-box`]}>
-            <Text view='p-16'>Preparation</Text>
-            <Text view='p-16' color='accent' weight='bold'>{`${recipeInfoContext.recipeCont.preparationTime} minutes`}</Text>
-        </div>
-        <div className={styles[`info-grid__info-box`]}>
-            <Text view='p-16'>Cooking</Text>
-            <Text view='p-16' color='accent' weight='bold'>{`${recipeInfoContext.recipeCont.cookingTime} minutes`}</Text>
-        </div>
-        <div className={styles[`info-grid__info-box`]}>
-            <Text view='p-16'>Total</Text>
-            <Text view='p-16' color='accent' weight='bold'>{`${recipeInfoContext.recipeCont.totalTime} minutes`}</Text>
-        </div>
-        <div className={styles[`info-grid__info-box`]}>
-            <Text view='p-16'>Likes</Text>
-            <Text view='p-16' color='accent' weight='bold'>{recipeInfoContext.recipeCont.likes}</Text>
-        </div>
-        <div className={styles[`info-grid__info-box`]}>
-            <Text view='p-16'>Servings</Text>
-            <Text view='p-16' color='accent' weight='bold'>{`${recipeInfoContext.recipeCont.servings} servings`}</Text>
-        </div>
-        <div className={styles[`info-grid__info-box`]}>
-            <Text view='p-16'>Ratings</Text>
-            <Text view='p-16' color='accent' weight='bold'>{recipeInfoContext.recipeCont.rating}</Text>
-        </div>
+        {InfoItem.map(item =>
+            <div key={item.title} className={styles[`info-grid__info-box`]}>
+                <Text view='p-16'>{item.title}</Text>
+                <Text view='p-16' color='accent' weight='bold'>{`${item.value} ${item.unit ?? ''}`}</Text>
+            </div>
+        )}
     </div>)
 };
 
