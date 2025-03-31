@@ -3,76 +3,77 @@
 .text {
     color: inherit;
     margin: 0;
-}
 
-.text_view_title {
-    font-family: inherit;
-    font-weight: 700;
-    font-size: 44px;
-    line-height: 48px;
-    letter-spacing: 0%;
-}
+    &__view_title {
+        font-family: inherit;
+        font-weight: 700;
+        font-size: 44px;
+        line-height: 48px;
+        letter-spacing: 0%;
+    }
 
-.text_view_button {
-    font-family: inherit;
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 18px;
-    letter-spacing: 0%;
-}
+    &__view_button {
+        font-family: inherit;
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 18px;
+        letter-spacing: 0%;
+    }
 
-.text_view_p-20 {
-    font-family: inherit;
-    font-weight: 400;
-    font-size: 20px;
-    line-height: 24px;
-    letter-spacing: 0%;
-}
+    &__view_p-20 {
+        font-family: inherit;
+        font-weight: 400;
+        font-size: 20px;
+        line-height: 24px;
+        letter-spacing: 0%;
+    }
 
-.text_view_p-18 {
-    font-family: inherit;
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 22px;
-    letter-spacing: 0%;
-}
+    &__view_p-18 {
+        font-family: inherit;
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 22px;
+        letter-spacing: 0%;
+    }
 
-.text_view_p-16 {
-    font-family: inherit;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 20px;
-    letter-spacing: 0%;
-}
+    &__view_p-16 {
+        font-family: inherit;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 20px;
+        letter-spacing: 0%;
+    }
 
-.text_view_p-14 {
-    font-family: inherit;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 18px;
-    letter-spacing: 0%;
-}
+    &__view_p-14 {
+        font-family: inherit;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 18px;
+        letter-spacing: 0%;
+    }
 
-.text_weight_normal {
-    font-weight: normal !important;
-}
+    &__weight_normal {
+        font-weight: normal !important;
+    }
 
-.text_weight_medium {
-    font-weight: medium !important;
-}
+    &__weight_medium {
+        font-weight: medium !important;
+    }
 
-.text_weight_bold {
-    font-weight: bold !important;
-}
+    &__weight_bold {
+        font-weight: bold !important;
+    }
 
-.text_color_primary {
-    color: var(--text-primary);
-}
+    &__color_primary {
+        color: var(--text-primary);
+    }
 
-.text_color_secondary {
-    color: var(--text-secondary);
-}
+    &__color_secondary {
+        color: var(--text-secondary);
+    }
 
-.text_color_accent {
-    color: var(--text-accent);
+    &__color_accent {
+        color: var(--text-accent);
+    }
+
 }

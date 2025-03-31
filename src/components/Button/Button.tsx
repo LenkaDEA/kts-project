@@ -15,23 +15,19 @@ export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
 };
 
 const Button: React.FC<ButtonProps> = ({ className = '', loading = false, children, disabled = false, ...props }) => {
-
   const isDisabledByLoading = loading && !disabled;
-
-  const classes: string = classNames(
-    styles.my_button,
-    isDisabledByLoading && styles.disabled_by_loading,
-    className);
-
   const isButtonDisabled = loading || disabled;
 
   return <button
     {...props}
-    className={classes}
+    className={classNames(
+      styles['my-button'],
+      isDisabledByLoading && styles['my-button__disabled-by-loading'],
+      className)}
     disabled={isButtonDisabled}
   >
-    <div className='my_button_contaner'>
-      {loading ? <Loader className='loader_color_text' size='s' /> : null}
+    <div className='my-button--contaner'>
+      {loading ? <Loader size='s' /> : null}
       <Text view='button'>
         {children}
       </Text>

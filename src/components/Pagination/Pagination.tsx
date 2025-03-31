@@ -38,12 +38,12 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage, pageCount, onPageC
     };
 
     return (
-        <div className={styles.pagination}>
+        <div className={styles[`pagination`]}>
             {generatePageNumbers().map((num, i) =>
-                num === '...' ? (<div key={`dots-${i}`} className={styles.dots}>...</div>) :
+                num === '...' ? (<div key={`dots-${i}`} className={styles[`pagination__dots`]}>...</div>) :
                     (<div
                         key={num}
-                        className={currentPage === num ? styles.active : styles.page}
+                        className={currentPage === num ? styles[`pagination__active`] : styles[`pagination__page`]}
                         onClick={() => onPageChange(num as number)}
                     >
                         {num}

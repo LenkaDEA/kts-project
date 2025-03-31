@@ -1,6 +1,6 @@
 @use 'styles/variables';
 
-.my_button {
+.my-button {
     width: 153;
     height: 52;
     min-height: 52px;
@@ -17,35 +17,35 @@
     color: var(--button-primary-text);
 
     border-radius: var(--border-radius);
-}
 
-.my_button:hover {
-    background: var(--button-primary-bg-hover);
-    color: var(--button-primary-text-hover);
-}
+    &:hover {
+        background: var(--button-primary-bg-hover);
+        color: var(--button-primary-text-hover);
+    }
 
-.my_button:disabled {
-    background: var(--button-primary-bg-disabled);
-    color: var(--button-primary-text-disabled);
-}
+    &:disabled {
+        background: var(--button-primary-bg-disabled);
+        color: var(--button-primary-text-disabled);
+    }
 
-.my_button:active {
-    background: var(--button-primary-bg-active);
-    color: var(--button-primary-text-active);
-}
+    &:active {
+        background: var(--button-primary-bg-active);
+        color: var(--button-primary-text-active);
+    }
 
-.my_button:disabled:active {
-    background: var(--button-primary-bg-disabled);
-    color: var(--button-primary-text-disabled);
-}
+    &:disabled:active {
+        background: var(--button-primary-bg-disabled);
+        color: var(--button-primary-text-disabled);
+    }
 
-.my_button.disabled_by_loading:disabled {
-    background: var(--button-primary-bg);
-    color: var(--button-primary-text);
-}
+    &__disabled_by_loading:disabled {
+        background: var(--button-primary-bg);
+        color: var(--button-primary-text);
+    }
 
-.my_button_contaner {
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    &--contaner {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
 }

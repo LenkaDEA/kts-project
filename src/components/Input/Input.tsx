@@ -16,24 +16,17 @@ export type InputProps = Omit<
 };
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(({ className, value, onChange, afterSlot, ...props }, ref) => {
-  const classes = classNames(
-    styles.input_container,
-    className
-  );
-
-  return <div
-    className={classes}
-  >
+  return <div className={classNames(styles.input, className)}>
     <input
       {...props}
-      className={styles.my_input}
+      className={styles['input__my-input']}
       type='text'
       value={value}
       onChange={(e) => onChange(e.target.value)}
     />
     {afterSlot && (
       <div
-        className={styles.icon_container}
+        className={styles['input__icon--container']}
       >
         {afterSlot}
       </div>

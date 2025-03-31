@@ -35,13 +35,13 @@ const Card: React.FC<CardProps> = ({
 }) => {
     return (
         <div
-            className={classNames(styles.card_parant, className)}
+            className={classNames(styles.card, className)}
             onClick={onClick}>
             <img
-                className={styles.card_image}
+                className={styles.card__image}
                 src={image} />
-            <div className={styles.card_content}>
-                <div className={styles.card_description}>
+            <div className={styles.card__content}>
+                <div className={styles.card__content_description}>
                     {captionSlot ? <Text view='p-14' color='secondary'>{captionSlot}</Text> : null}
 
                     <Text
@@ -62,7 +62,7 @@ const Card: React.FC<CardProps> = ({
                 </div>
 
                 <div
-                    className={styles.card_contaner_lower}
+                    className={styles.card__content_lower}
                 >
                     {contentSlot ? <Text view='p-18' weight='bold' color='accent'>{contentSlot}</Text> : null}
                     {actionSlot}

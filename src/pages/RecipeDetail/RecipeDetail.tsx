@@ -1,14 +1,14 @@
-import styles from './Recipe.module.scss';
+import styles from './RecipeDetail.module.scss';
 import Text from 'components/Text';
 import NaviIcon from 'components/icons/NaviIcon'
-import InfoGrid from './components/InfoGrid';
-import NeedList from './components/NeedList';
+import RecipeDetailInfo from './components/RecipeDetailInfo';
+import RecipeDetailNeedList from './components/RecipeDetailNeedList';
 
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import qs from 'qs';
 import { useParams, Link } from "react-router-dom";
-import { createContext, Dispatch, SetStateAction, useContext } from 'react';
+import React, { createContext, Dispatch, SetStateAction, useContext } from 'react';
 import parse from 'html-react-parser';
 import { Images } from 'App/App';
 
@@ -61,8 +61,9 @@ export const RecipeInfoContext = createContext<RecipeInfoContextType>({
 
 export const useRecipeInfoContext = () => useContext(RecipeInfoContext);
 
+const POPULATE_ITEMS = ['ingradients', 'equipments', 'directions.image', 'images', 'category'];
 
-function Recipe() {
+const RecipeDetail: React.FC = () => {
 
     const { documentId } = useParams();
 
@@ -81,7 +82,7 @@ function Recipe() {
         const fetch = async () => {
             try {
                 const params = {
-                    populate: ['ingradients', 'equipments', 'directions.image', 'images', 'category']
+                    populate: POPULATE_ITEMS
                 }
 
                 const result = await axios({
@@ -116,50 +117,45 @@ function Recipe() {
             };
         }
         fetch();
-    }, []);
+    }, [documentId]);
 
-    return (<div className={styles.container}>
-
-        <div className={styles.title}>
-            <Link to='/'>
-                <NaviIcon color='accent' />
-            </Link>
-            <Text view='title' maxLines={1} >{recipe?.name}</Text>
-        </div>
+    return (
         <RecipeInfoContext.Provider value={{
             recipeCont: recipe,
             setRecipeInfo: setRecipe
         }}>
-            <div className={styles.brief_info}>
-                <img className={styles.picture} src={imgRecipe?.url} />
-                <InfoGrid />
-            </div>
-        </RecipeInfoContext.Provider>
+            <div className={styles[`recipe`]}>
 
-
-        <div className={styles.about}>
-            <Text view='p-16'>{parse(recipe.summary)}</Text>
-        </div>
-
-        <RecipeInfoContext.Provider value={{
-            recipeCont: recipe,
-            setRecipeInfo: setRecipe
-        }}>
-            <NeedList />
-        </RecipeInfoContext.Provider>
-
-
-        <div className={styles.directions}>
-            <Text className={styles.title_directions} view='p-20' weight='bold'>Directions</Text>
-            {recipe.directions.map((item, index) =>
-                <div key={item.id} className={styles.step}>
-                    <Text view='p-16' weight='bold'>Step {index + 1}</Text>
-                    <Text view='p-14'>{item.description}</Text>
+                <div className={styles[`recipe__title`]}>
+                    <Link to='/'>
+                        <NaviIcon color='accent' />
+                    </Link>
+                    <Text view='title' maxLines={1} >{recipe?.name}</Text>
                 </div>
 
-            )}
-        </div>
-    </div>);
+                <div className={styles[`recipe__brief-info`]}>
+                    <img className={styles[`recipe__brief-info_picture`]} src={imgRecipe?.url} />
+                    <RecipeDetailInfo />
+                </div>
+
+                <div className={styles[`recipe__about`]}>
+                    <Text view='p-16'>{parse(recipe.summary)}</Text>
+                </div>
+
+                <RecipeDetailNeedList />
+
+                <div className={styles[`recipe__directions`]}>
+                    <Text className={styles[`recipe__directions_title`]} view='p-20' weight='bold'>Directions</Text>
+                    {recipe.directions.map((item, index) =>
+                        <div key={item.id} className={styles[`recipe__directions_step`]}>
+                            <Text view='p-16' weight='bold'>Step {index + 1}</Text>
+                            <Text view='p-14'>{item.description}</Text>
+                        </div>
+
+                    )}
+                </div>
+            </div>
+        </RecipeInfoContext.Provider>);
 }
 
-export default Recipe
+export default RecipeDetail

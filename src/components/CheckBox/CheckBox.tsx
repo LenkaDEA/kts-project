@@ -26,10 +26,10 @@ const CheckBox: React.FC<CheckBoxProps> = ({ className, onChange, disabled = fal
 
 
   return (
-    <div className={classNames(className, styles.custom_checkbox, disabled && styles.custom_checkbox__disabled)}>
+    <div className={classNames(className, styles.checkbox, disabled && styles.checkbox__disabled)}>
       <input
         {...props}
-        className={classNames('checkbox_input')}
+        className={classNames('checkbox__input')}
         onChange={handleClick}
         disabled={disabled}
         checked={checked}
@@ -39,7 +39,7 @@ const CheckBox: React.FC<CheckBoxProps> = ({ className, onChange, disabled = fal
         <CheckIcon
           width={40}
           height={40}
-          className={classNames('checkbox_icon')}
+          className={classNames('checkbox__input_icon')}
           color={!disabled ? 'accent' : 'secondary'}
         />
       }

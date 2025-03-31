@@ -1,7 +1,9 @@
 import styles from './App.module.scss';
 import NavBar from 'App/components/NavBar';
 import { Outlet } from 'react-router-dom';
-import { useState, createContext, Dispatch, SetStateAction } from 'react';
+import React, { useState, createContext, Dispatch, SetStateAction } from 'react';
+
+import 'styles/styles.scss'
 
 export interface Recipe {
   documentId: number,
@@ -26,14 +28,14 @@ export const ApiContext = createContext<ApiContextType>({
   setRecipes: () => { }
 });
 
-function App() {
+const App: React.FC = () => {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   return (
     <ApiContext.Provider value={{ recipes, setRecipes }}>
-      <div className={styles.main_app}>
-        <div className={styles.bgpicture_div}>
+      <div className={styles.app}>
+        <div className={styles[`app__background--container`]}>
           <img
-            className={styles.bgpicture}
+            className={styles.app__background}
             src='src/assets/bgrecipe.svg'
           />
         </div>

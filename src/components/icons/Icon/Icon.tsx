@@ -12,7 +12,7 @@ const Icon: React.FC<React.PropsWithChildren<IconProps>> = ({ className, color =
     return <svg
         {...props}
         className={classNames(styles.icon,
-            styles[`icon_color_${color}`],
+            styles[`icon__color_${color}`],
             className)}
         width={width}
         height={height}

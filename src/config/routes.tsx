@@ -1,6 +1,6 @@
 import { RouteObject } from "react-router-dom";
 import App from "../App";
-import Recipe from "../pages/Recipe";
+import RecipeDetail from "../pages/RecipeDetail";
 import RecipesList from "../pages/RecipesList/RecipesList";
 
 
@@ -15,11 +15,11 @@ export const routesConfig: RouteObject[] = [
             },
             {
                 path: '/recipe',
-                element: <Recipe />
+                element: <RecipeDetail />
             },
             {
                 path: '/recipe/:documentId',
-                element: <Recipe />
+                element: <RecipeDetail />
             }
         ]
     }

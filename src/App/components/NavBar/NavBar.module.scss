@@ -1,33 +1,31 @@
 @use 'styles/variables';
 
-.container {
+.navbar {
     height: 64px;
     background-color: var(--bg-items);
-    // padding-left: 10%;
-    // padding-right: 10%;
 
     display: flex;
     gap: var(--space-l);
     align-items: center;
     justify-content: center;
-}
 
-.logo_container {
-    display: flex;
-    gap: var(--space-l);
-    align-items: center;
-    padding-right: 5vw;
-}
+    &__logo {
+        display: flex;
+        gap: var(--space-l);
+        align-items: center;
+        padding-right: 5vw;
+    }
 
-.nav_conteiner {
-    display: flex;
-    gap: var(--space-m);
-    align-items: center;
-}
+    &__conteiner {
+        display: flex;
+        gap: var(--space-m);
+        align-items: center;
+    }
 
-.users_icons {
-    display: flex;
-    gap: var(--space-m);
-    align-items: center;
-    padding-left: 20vw;
+    &__users-icons {
+        display: flex;
+        gap: var(--space-m);
+        align-items: center;
+        padding-left: 20vw;
+    }
 }

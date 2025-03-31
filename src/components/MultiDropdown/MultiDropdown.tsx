@@ -106,7 +106,7 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
   return (
     <div
       ref={wrapperRef}
-      className={classNames(className, 'comtainer')}
+      className={classNames(className, styles[`multi-dropdown`])}
       onClick={handleDivClick}>
       <Input
         value={isOpen || selectedOptions.length === 0 ? searchQuery : title}
@@ -118,13 +118,13 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
         {...props}
       />
       {isOpen && !disabled && (
-        <ul className={classNames(styles.my_ul)}>
+        <ul className={classNames(styles[`multi-dropdown__my-ul`])}>
           {filteredOptions.map(option => {
             const isSelected = selectedOptions.some(v => v.key === option.key);
             return (
               <li
                 key={option.key}
-                className={classNames(styles.my_li)}
+                className={classNames(styles[`multi-dropdown__my-ul_my-li`])}
                 onClick={() => handleSelectValue(option)}
               >
                 <Text view="p-16" color={isSelected ? 'accent' : 'primary'}>

@@ -28,7 +28,12 @@ const Loader: React.FC<LoaderProps> = ({ size = 'l', className = '' }) => {
 
     const classes = classNames(styles.loader, className);
 
-    return <svg className={classes} width={sizeValue} height={sizeValue} viewBox={`0 0 ${sizeValue} ${sizeValue}`} fill="none" xmlns="http://www.w3.org/2000/svg">
+    return <svg className={classes}
+        width={sizeValue}
+        height={sizeValue}
+        viewBox={`0 0 ${sizeValue} ${sizeValue}`}
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg">
         <path d={pathLoader} />
     </svg>
 };

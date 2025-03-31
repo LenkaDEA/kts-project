@@ -23,10 +23,10 @@ export type TextProps = {
 const Text: React.FC<TextProps> = ({ className, view, tag: Tag = 'div', weight, children, color, maxLines }) => {
     return <Tag
         className={classNames(
-            styles.text,
-            styles[`text_view_${view}`],
-            styles[`text_weight_${weight}`],
-            styles[`text_color_${color}`],
+            styles[`text`],
+            styles[`text__view_${view}`],
+            styles[`text__weight_${weight}`],
+            styles[`text__color_${color}`],
             className
         )}
         style={{
