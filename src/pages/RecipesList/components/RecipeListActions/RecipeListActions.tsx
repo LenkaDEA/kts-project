@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState, useMemo } from "react";
 
 import styles from './RecipeListActions.module.scss';
 import Input from "components/Input";
@@ -6,13 +6,87 @@ import Button from "components/Button";
 import SearchIcon from "components/icons/SearchIcon";
 import MultiDropdown, { Option } from "components/MultiDropdown";
 
-const RecipeListActions: React.FC = () => {
+import { useLocalStore } from "utils/useLocalStore";
+import CategoriesStore, { CategoriesType } from "store/CategoriesStore/CategoriesStore";
+import { reaction } from "mobx";
+import rootStore from "store/RootStore";
+
+export type RecipeListActionsProps = {
+    /** Вызывается при клике на чекбокс */
+    onChangeSearch: (value: string) => void;
+    onChangeCategories: (value: string[]) => void;
+    categoriesKeys: string[];
+};
+
+const RecipeListActions: React.FC<RecipeListActionsProps> = ({ onChangeSearch, onChangeCategories, categoriesKeys }) => {
+
+    const [isEnterValue, setIsEnterValue] = useState<boolean>(false);
+    const [categoriesItems, setCategoriesItems] = useState<Option[]>([{ key: "default", value: "default" }]);
+
+
+    const [searchQuery, setSearchQuery] = React.useState<string>('');
+    useEffect(() => {
+        onChangeSearch(searchQuery);
+    }, [searchQuery]);
+
+
+    const [categoriesValue, setCategoriesValue] = React.useState<Option[]>([]);
+    useEffect(() => {
+        onChangeCategories(categoriesValue.map((item: Option) => item.key));
+    }, [categoriesValue]);
+
+    const handleInputClick = () => {
+        setIsEnterValue(true);
+        if (searchQuery === '')
+            setSearchQuery('');
+    };
+
+    const categoriesStor = useLocalStore(() => new CategoriesStore());
+
+    useEffect(() => {
+        const updateCategories = reaction(
+            () => ({
+                data: categoriesStor.list.data
+            }),
+            ({ data }) => {
+                setCategoriesItems(data.map((item: CategoriesType) => ({
+                    key: item.id,
+                    value: item.title
+                })));
+            }
+        );
+        return () => updateCategories();
+    }, [categoriesStor]);
+
+    useEffect(() => {
+        categoriesStor.getCategories({ project: "meal-categories" });
+    }, [categoriesStor]);
+
+    const initialCategoriesValue = useMemo(
+        () => categoriesKeys
+            .map(key => categoriesItems.find(item => item.key == key))
+            .filter((item): item is Option => !!item),
+        [categoriesKeys, categoriesItems]
+    );
+
+    useEffect(() => {
+        if (JSON.stringify(initialCategoriesValue) !== JSON.stringify(categoriesValue)) {
+            setCategoriesValue(initialCategoriesValue);
+        }
+    }, [initialCategoriesValue]);
+
     return (<div>
         <div className={styles[`recipe-list-actions__search-container`]}>
             <Input
                 className={styles[`recipe-list-actions__search-container__input`]}
-                value="Enter dishes"
-                onChange={() => console.log("onChange: Input recipe")}
+                value={isEnterValue
+                    ? String(rootStore.query.getParam('search') ?? '')
+                    : "Введи значение!"}
+                onChange={(val: string) => {
+                    setSearchQuery(val);
+                    rootStore.query.setSearch(`search=${val}`);
+                }}
+                onClick={handleInputClick}
             >
             </Input>
             <Button><SearchIcon /></Button>
@@ -20,14 +94,14 @@ const RecipeListActions: React.FC = () => {
 
         <div className={styles[`recipe-list-actions__categories`]}>
             <MultiDropdown
-                options={[
-                    { key: 'first', value: 'Завтраки' },
-                    { key: 'second', value: 'Обеды' },
-                    { key: 'thrird', value: 'Ужины' }
-                ]}
-                value={[{ key: 'first', value: 'Зактраки' }]}
-                onChange={(value: Option[]) => console.log('Выбрано:', value)}
-                getTitle={() => 'Categories'}
+                options={categoriesItems}
+                value={categoriesValue}
+                onChange={(val: Option[]) => {
+                    const keys: string[] = val.map((option) => option.key);
+                    setCategoriesValue(val);
+                    rootStore.query.setSearch(`categories=${keys.join(",")}`);
+                }}
+                getTitle={(values: Option[]) => values.length === 0 ? 'Выберите категорию' : `Выбрано: ${values.length}`}
             />
         </div>
     </div>);

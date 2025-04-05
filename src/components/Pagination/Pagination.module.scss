@@ -1,33 +1,53 @@
 @use 'styles/variables';
 
 .pagination {
+    margin-top: var(--space-xxl);
+    margin-bottom: var(--space-xl);
     display: flex;
-    gap: 8px;
-    width: 280px;
+    gap: 18px;
     justify-content: center;
+    align-items: center;
+    user-select: none;
 
-    &__dots {
-        padding: 12px 12px;
+    &__numbers {
+        display: flex;
+        gap: 8px;
+        width: 280px;
+        justify-content: center;
+
+        &_dots {
+            padding: 12px 12px;
+        }
+
+        &_active {
+            width: 38px;
+            height: 42px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: var(--brand);
+            color: #fff;
+            cursor: default;
+        }
+
+        &_page {
+            width: 38px;
+            height: 42px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: transparent;
+            cursor: pointer;
+        }
     }
 
-    &__active {
-        width: 38px;
-        height: 42px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: var(--brand);
-        color: #fff;
-        cursor: default;
-    }
-
-    &__page {
-        width: 38px;
-        height: 42px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: transparent;
+    &__button-pag {
+        background: transparent;
+        border: 0px;
         cursor: pointer;
+
+        &_icon-rotate {
+            transform: scaleX(-1);
+        }
     }
 }

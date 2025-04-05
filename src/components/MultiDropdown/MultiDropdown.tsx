@@ -40,7 +40,6 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
   ...props
 }) => {
   const [isOpen, setIsOpen] = React.useState(false);
-  const [selectedOptions, setSelectedOptions] = React.useState<Option[]>(value);
   const wrapperRef = React.useRef<HTMLDivElement>(null);
   const [searchQuery, setSearchQuery] = React.useState('');
 
@@ -74,13 +73,13 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
   };
 
   const handleDivClick = () => {
-    if (!disabled && !isOpen) {
+    if (!disabled) {
       setIsOpen(state => !state);
     }
   }
 
-  let title = value.length > 0 ? getTitle(selectedOptions) : '';
-  const placeholder = getTitle(selectedOptions);
+  let title = value.length > 0 ? getTitle(value) : '';
+  const placeholder = getTitle(value);
 
   const handleSelectValue = (selectedOption: Option) => {
     const isSelected = value.some(option => option.key === selectedOption.key);
@@ -92,15 +91,6 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
       newValue = [...value, selectedOption];
     }
     onChange(newValue);
-
-
-    setSelectedOptions(prev => {
-      const isSelected = prev.some(item => item.key === selectedOption.key);
-      return isSelected
-        ? prev.filter(item => item.key !== selectedOption.key)
-        : [...prev, selectedOption];
-    });
-
   };
 
   return (
@@ -109,7 +99,7 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
       className={classNames(className, styles[`multi-dropdown`])}
       onClick={handleDivClick}>
       <Input
-        value={isOpen || selectedOptions.length === 0 ? searchQuery : title}
+        value={isOpen || value.length === 0 ? searchQuery : title}
         onChange={(val: string) => isOpen && setSearchQuery(val)}
         onClick={handleInputClick}
         placeholder={placeholder}
@@ -120,12 +110,15 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
       {isOpen && !disabled && (
         <ul className={classNames(styles[`multi-dropdown__my-ul`])}>
           {filteredOptions.map(option => {
-            const isSelected = selectedOptions.some(v => v.key === option.key);
+            const isSelected = value.some(v => v.key === option.key);
             return (
               <li
                 key={option.key}
                 className={classNames(styles[`multi-dropdown__my-ul_my-li`])}
-                onClick={() => handleSelectValue(option)}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleSelectValue(option);
+                }}
               >
                 <Text view="p-16" color={isSelected ? 'accent' : 'primary'}>
                   {option.value}
