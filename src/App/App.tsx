@@ -4,8 +4,9 @@ import { Outlet } from 'react-router-dom';
 import React, { useState, createContext, Dispatch, SetStateAction } from 'react';
 
 import 'styles/styles.scss'
+import { useQueryParamsStoreInit } from 'store/RootStore/hooks/useQueryParamsStoreInit';
 
-export interface Recipe {
+export interface RecipeItem {
   documentId: number,
   name: string,
   calories: number,
@@ -19,8 +20,8 @@ export interface Images {
 }
 
 export interface ApiContextType {
-  recipes: Recipe[];
-  setRecipes: Dispatch<SetStateAction<Recipe[]>>;
+  recipes: RecipeItem[];
+  setRecipes: Dispatch<SetStateAction<RecipeItem[]>>;
 }
 
 export const ApiContext = createContext<ApiContextType>({
@@ -29,7 +30,10 @@ export const ApiContext = createContext<ApiContextType>({
 });
 
 const App: React.FC = () => {
-  const [recipes, setRecipes] = useState<Recipe[]>([]);
+  useQueryParamsStoreInit();
+
+  const [recipes, setRecipes] = useState<RecipeItem[]>([]);
+
   return (
     <ApiContext.Provider value={{ recipes, setRecipes }}>
       <div className={styles.app}>
