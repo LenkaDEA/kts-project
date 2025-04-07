@@ -4,16 +4,20 @@
     height: 64px;
     background-color: var(--bg-items);
 
+    padding-left: 10vw;
+    padding-right: 10vw;
+
     display: flex;
     gap: var(--space-l);
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+
+
 
     &__logo {
         display: flex;
         gap: var(--space-l);
         align-items: center;
-        padding-right: 5vw;
     }
 
     &__conteiner {
@@ -26,6 +30,5 @@
         display: flex;
         gap: var(--space-m);
         align-items: center;
-        padding-left: 20vw;
     }
 }
