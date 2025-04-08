@@ -5,6 +5,7 @@ import React, { useState, createContext, Dispatch, SetStateAction } from 'react'
 
 import 'styles/styles.scss'
 import { useQueryParamsStoreInit } from 'store/RootStore/hooks/useQueryParamsStoreInit';
+import { useRecipesStore } from 'store/RootStore/hooks/useRecipesStore'
 
 export interface RecipeItem {
   documentId: number,
@@ -31,6 +32,7 @@ export const ApiContext = createContext<ApiContextType>({
 
 const App: React.FC = () => {
   useQueryParamsStoreInit();
+  useRecipesStore();
 
   const [recipes, setRecipes] = useState<RecipeItem[]>([]);
 

@@ -2,10 +2,9 @@ import { ILocalStore } from 'store/interfaces/ILocalStore';
 import ApiStore from 'store/ApiStore/ApiStore';
 import { HTTPMethod } from 'store/ApiStore/types';
 import { Meta } from 'utils/meta'
-import { makeObservable, observable, computed, action, runInAction, IReactionDisposer, reaction } from 'mobx';
+import { makeObservable, observable, computed, action, runInAction } from 'mobx';
 
 import { RecipeItem } from 'App/App';
-import rootStore from 'store/RootStore';
 
 import {
     IRecipesStore,
@@ -137,38 +136,5 @@ export default class RecipesStore implements IRecipesStore, ILocalStore {
 
     destroy(): void {
         this.reset();
-        this._qpReaction();
-        if (this._timeoutId) {
-            clearTimeout(this._timeoutId);
-            this._timeoutId = null;
-        }
     }
-
-    private _timeoutId: ReturnType<typeof setTimeout> | null = null;
-
-    private readonly _qpReaction: IReactionDisposer = reaction(
-        () => ({
-            search: rootStore.query.getParam('search'),
-            categories: rootStore.query.getParam('categories'),
-            page: rootStore.query.getParam('page')
-        }),
-        (params) => {
-            if (this._timeoutId) {
-                clearTimeout(this._timeoutId);
-            };
-
-
-            this._timeoutId = setTimeout(() => {
-                this.getRecipesList({
-                    project: "recipes",
-                    perPage: 9,
-                    page: Number(params.page) || 1,
-                    search: params.search?.toString() || '',
-                    categories: params.categories?.toString().split(',') || []
-                });
-            }, 500);
-        },
-        { fireImmediately: true }
-    );
-
 }

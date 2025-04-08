@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React from "react";
 import classNames from "classnames";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -12,13 +12,10 @@ import TimerIcon from "components/icons/TimerIcon";
 import Text from "components/Text";
 import Pagination from "components/Pagination";
 
-import RecipesStore from "store/RecipeStore/RecipesStore";
 import { observer } from 'mobx-react-lite';
 import rootStore from "store/RootStore";
 
 const RecipeListContainer: React.FC = () => {
-
-    const recipesStore = useMemo(() => new RecipesStore(), []);
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -74,6 +71,8 @@ const RecipeListContainer: React.FC = () => {
         rootStore.query.setSearch(`page=${currentPage}`);
     }, [currentPage]);
 
+    console.log('searchQuery', rootStore.query.getParam('search'))
+    console.log('RecipeList', rootStore.recipesList.list);
     return (
         <div className={classNames(styles[`recipe-box`])}>
             <RecipeListActions
@@ -82,7 +81,7 @@ const RecipeListContainer: React.FC = () => {
                 categoriesKeys={categoriesValue} />
 
             <div className={styles[`recipe-box__recipes-list`]}>
-                {recipesStore.list.data.map(item =>
+                {rootStore.recipesList.list.data.map(item =>
                     <Card
                         key={item.documentId}
                         image={item.images[0].url || 'src/assets/defaultfood.png'}
@@ -102,7 +101,7 @@ const RecipeListContainer: React.FC = () => {
 
             <Pagination
                 currentPage={currentPage}
-                pageCount={recipesStore.list.meta.pagination.pageCount}
+                pageCount={rootStore.recipesList.list.meta.pagination.pageCount}
                 onPageChange={(page) => setCurrentPage(page)}
             />
 
