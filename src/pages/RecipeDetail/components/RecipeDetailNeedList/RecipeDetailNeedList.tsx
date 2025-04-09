@@ -5,7 +5,7 @@ import LadleIcon from 'components/icons/LadleIcon';
 import styles from './RecipeDetailNeedList.module.scss';
 
 import React from 'react';
-import RecipeDetailStore from 'store/RecipeDetailStore';
+import RecipeDetailStore from 'stores/local/RecipeDetailStore';
 
 export type RecipeDetailNeedListParams = {
     recipeDetailStore: RecipeDetailStore;

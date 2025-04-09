@@ -6,10 +6,10 @@ import Button from "components/Button";
 import SearchIcon from "components/icons/SearchIcon";
 import MultiDropdown, { Option } from "components/MultiDropdown";
 
-import { useLocalStore } from "utils/useLocalStore";
-import CategoriesStore, { CategoriesType } from "store/CategoriesStore";
+import { useLocalStore } from "stores/local/LocalStore";
+import CategoriesStore, { CategoriesType } from "stores/local/CategoriesStore";
 import { reaction } from "mobx";
-import rootStore from "store/RootStore";
+import rootStore from "stores/global"
 import { observer } from "mobx-react-lite";
 
 export type RecipeListActionsProps = {

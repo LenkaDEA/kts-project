@@ -2,9 +2,9 @@ import styles from './App.module.scss';
 import NavBar from 'App/components/NavBar';
 import { Outlet } from 'react-router-dom';
 
-import 'styles/styles.scss'
-import { useQueryParamsStoreInit } from 'store/RootStore/hooks/useQueryParamsStoreInit';
-import { useRecipesStore } from 'store/RootStore/hooks/useRecipesStore'
+import 'styles/styles.scss';
+import { useQueryParamsStoreInit } from 'stores/global/hooks/useQueryParamsStoreInit';
+import { useRecipesStore } from 'stores/global/hooks/useRecipesStore';
 
 const App: React.FC = () => {
   useQueryParamsStoreInit();

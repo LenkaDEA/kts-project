@@ -3,7 +3,7 @@ import React from "react";
 import Text from "components/Text";
 import styles from "./RecipeDetailInfo.module.scss"
 
-import RecipeDetailStore from "store/RecipeDetailStore";
+import RecipeDetailStore from "stores/local/RecipeDetailStore";
 
 type InfoItemType = {
     title: string;

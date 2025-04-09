@@ -1,6 +1,5 @@
-import { ILocalStore } from 'store/interfaces/ILocalStore';
-import ApiStore from 'store/ApiStore/ApiStore';
-import { HTTPMethod } from 'store/ApiStore/types';
+import { ILocalStore } from 'stores/local/LocalStore';
+import ApiStore, { HTTPMethod } from 'stores/local/ApiStore';
 import { Meta } from 'utils/meta'
 import { makeObservable, observable, computed, action, runInAction } from 'mobx';
 

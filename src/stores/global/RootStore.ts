@@ -1,5 +1,5 @@
-import RecipesStore from "./RecipeStore/RecipesStore";
-import QueryParamsStore from "./QueryParamsStore/QueryParamsStore";
+import RecipesStore from "./RecipeStore";
+import QueryParamsStore from "./QueryParamsStore";
 
 export default class RootStore {
     readonly query = new QueryParamsStore();

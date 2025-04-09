@@ -1,4 +1,4 @@
-import { Images } from 'store/RootStore/RecipeStore/types';
+import { Images } from 'stores/global/RecipeStore/types';
 
 export type GetRecipeDetailParams = {
     documentID: string;

@@ -13,7 +13,7 @@ import Text from "components/Text";
 import Pagination from "components/Pagination";
 
 import { observer } from 'mobx-react-lite';
-import rootStore from "store/RootStore";
+import rootStore from "stores/global"
 
 const RecipeListContainer: React.FC = () => {
     const navigate = useNavigate();

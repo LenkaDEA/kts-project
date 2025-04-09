@@ -32,8 +32,8 @@
       "pages": [
         "pages/*"
       ],
-      "store": [
-        "store/*"
+      "stores": [
+        "stores/*"
       ]
     }
   }

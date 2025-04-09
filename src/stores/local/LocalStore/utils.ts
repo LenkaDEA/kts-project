@@ -1,5 +1,5 @@
 import React from 'react';
-import { ILocalStore } from 'store/interfaces/ILocalStore';
+import { ILocalStore } from 'stores/local/LocalStore'
 // сделаем функцию дженериком <T>, это значит что она принимает  
 // функцию creator, которая возвращает сущность типа T и сама
 // функция useLocalStore возвращает сущность типа T

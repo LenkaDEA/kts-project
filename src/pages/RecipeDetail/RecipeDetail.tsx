@@ -9,8 +9,8 @@ import { useParams, Link } from "react-router-dom";
 import React from 'react';
 import parse from 'html-react-parser';
 
-import { useLocalStore } from "utils/useLocalStore";
-import RecipeDetailStore from "store/RecipeDetailStore/RecipeDetailStore";
+import { useLocalStore } from "stores/local/LocalStore";
+import RecipeDetailStore from "stores/local/RecipeDetailStore";
 import { observer } from 'mobx-react-lite';
 
 const RecipeDetail: React.FC = () => {

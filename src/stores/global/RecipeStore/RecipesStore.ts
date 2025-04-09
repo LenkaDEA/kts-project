@@ -1,10 +1,8 @@
-import { ILocalStore } from 'store/interfaces/ILocalStore';
-import ApiStore from 'store/ApiStore/ApiStore';
-import { HTTPMethod } from 'store/ApiStore/types';
+import ApiStore, { HTTPMethod } from 'stores/local/ApiStore';
 import { Meta } from 'utils/meta'
 import { makeObservable, observable, computed, action, runInAction } from 'mobx';
 
-import { RecipeItem } from 'store/RootStore/RecipeStore/types';
+import { RecipeItem } from 'stores/global/RecipeStore/types';
 import { BASE_URL, RECIPE_ENDPOINT, PRIVATE_FIELDS_LIST } from 'config/apiUrls';
 
 import {
@@ -26,7 +24,7 @@ export interface RecipeData {
 }
 
 
-export default class RecipesStore implements IRecipesStore, ILocalStore {
+export default class RecipesStore implements IRecipesStore {
     private readonly _apiStore = new ApiStore(BASE_URL);
     private _list: RecipeData = {
         data: [],
@@ -47,7 +45,6 @@ export default class RecipesStore implements IRecipesStore, ILocalStore {
             _meta: observable,
             list: computed,
             meta: computed,
-            reset: action,
             getRecipesList: action
         });
     }
@@ -114,25 +111,5 @@ export default class RecipesStore implements IRecipesStore, ILocalStore {
             }
             this._meta = Meta.error;
         })
-    }
-
-
-    reset(): void {
-        this._list = {
-            data: [],
-            meta: {
-                pagination: {
-                    page: 0,
-                    pageCount: 0,
-                    pageSize: 0,
-                    total: 0
-                }
-            }
-        };
-        this._meta = Meta.initial;
-    }
-
-    destroy(): void {
-        this.reset();
     }
 }
