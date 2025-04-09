@@ -5,22 +5,12 @@ import { Meta } from 'utils/meta'
 import { makeObservable, observable, computed, action, runInAction } from 'mobx';
 
 import {
-    ICategoriesStore,
-    GetCategoriesParams,
+    ICategoriesStore
 } from './type';
+import { BASE_URL, CATEGORIES_ENDPOINT, PRIVATE_FIELDS_LIST } from 'config/apiUrls';
+import { CategoriesData } from './type'
 
-type PrivateFields = '_list' | '_meta';
 
-const BASE_URL = 'https://front-school-strapi.ktsdev.ru/api/';
-
-export interface CategoriesType {
-    id: string,
-    title: string
-}
-
-export interface CategoriesData {
-    data: CategoriesType[]
-}
 
 
 export default class CategoriesStore implements ICategoriesStore, ILocalStore {
@@ -29,7 +19,7 @@ export default class CategoriesStore implements ICategoriesStore, ILocalStore {
     private _meta: Meta = Meta.initial;
 
     constructor() {
-        makeObservable<CategoriesStore, PrivateFields>(this, {
+        makeObservable<CategoriesStore, PRIVATE_FIELDS_LIST>(this, {
             _list: observable.ref,
             _meta: observable,
             list: computed,
@@ -48,7 +38,7 @@ export default class CategoriesStore implements ICategoriesStore, ILocalStore {
     }
 
     async getCategories(
-        params: GetCategoriesParams
+        // params: GetCategoriesParams
     ): Promise<void> {
         this._meta = Meta.loading;
         this._list = { data: [] };
@@ -59,7 +49,7 @@ export default class CategoriesStore implements ICategoriesStore, ILocalStore {
                 populate: '*'
             },
             headers: {},
-            endpoint: `${params.project}`
+            endpoint: CATEGORIES_ENDPOINT
         });
 
         runInAction(() => {

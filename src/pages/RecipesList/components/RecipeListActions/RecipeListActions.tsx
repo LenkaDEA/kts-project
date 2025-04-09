@@ -7,9 +7,10 @@ import SearchIcon from "components/icons/SearchIcon";
 import MultiDropdown, { Option } from "components/MultiDropdown";
 
 import { useLocalStore } from "utils/useLocalStore";
-import CategoriesStore, { CategoriesType } from "store/CategoriesStore/CategoriesStore";
+import CategoriesStore, { CategoriesType } from "store/CategoriesStore";
 import { reaction } from "mobx";
 import rootStore from "store/RootStore";
+import { observer } from "mobx-react-lite";
 
 export type RecipeListActionsProps = {
     /** Вызывается при клике на чекбокс */
@@ -41,12 +42,12 @@ const RecipeListActions: React.FC<RecipeListActionsProps> = ({ onChangeSearch, o
             setSearchQuery('');
     };
 
-    const categoriesStor = useLocalStore(() => new CategoriesStore());
+    const categoriesStore = useLocalStore(() => new CategoriesStore());
 
     useEffect(() => {
         const updateCategories = reaction(
             () => ({
-                data: categoriesStor.list.data
+                data: categoriesStore.list.data
             }),
             ({ data }) => {
                 setCategoriesItems(data.map((item: CategoriesType) => ({
@@ -56,11 +57,11 @@ const RecipeListActions: React.FC<RecipeListActionsProps> = ({ onChangeSearch, o
             }
         );
         return () => updateCategories();
-    }, [categoriesStor]);
+    }, [categoriesStore]);
 
     useEffect(() => {
-        categoriesStor.getCategories({ project: "meal-categories" });
-    }, [categoriesStor]);
+        categoriesStore.getCategories();
+    }, [categoriesStore]);
 
     const initialCategoriesValue = useMemo(
         () => categoriesKeys
@@ -107,4 +108,4 @@ const RecipeListActions: React.FC<RecipeListActionsProps> = ({ onChangeSearch, o
     </div>);
 }
 
-export default RecipeListActions;
+export default observer(RecipeListActions);

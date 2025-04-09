@@ -13,7 +13,6 @@ export const useRecipesStore = (): void => {
             }),
             (params) => {
                 rootStore.recipesList.getRecipesList({
-                    project: "recipes",
                     perPage: 9,
                     page: Number(params.page) || 1,
                     search: params.search?.toString() || '',

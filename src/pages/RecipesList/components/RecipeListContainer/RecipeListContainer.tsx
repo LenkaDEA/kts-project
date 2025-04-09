@@ -72,7 +72,7 @@ const RecipeListContainer: React.FC = () => {
     }, [currentPage]);
 
     console.log('searchQuery', rootStore.query.getParam('search'))
-    console.log('RecipeList', rootStore.recipesList.list);
+    console.log('RecipeList', rootStore.recipesList.list, rootStore.recipesList.meta);
     return (
         <div className={classNames(styles[`recipe-box`])}>
             <RecipeListActions

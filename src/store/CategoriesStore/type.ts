@@ -1,9 +1,13 @@
-export type GetCategoriesParams = {
-    project: string;
-};
-
 export interface ICategoriesStore {
     getCategories(
-        params: GetCategoriesParams
     ): Promise<void>;
+}
+
+export interface CategoriesType {
+    id: string,
+    title: string
+}
+
+export interface CategoriesData {
+    data: CategoriesType[]
 }

@@ -7,54 +7,17 @@ import { makeObservable, observable, computed, action, runInAction } from 'mobx'
 import {
     IRecipeDetailStore,
     GetRecipeDetailParams,
+    RecipeDetailData,
+    RecipeInfo
 } from './types';
-import { Images } from 'App/App';
 
-type PrivateFields = '_list' | '_meta';
+import { BASE_URL, RECIPE_ENDPOINT, PRIVATE_FIELDS_RECIPE } from 'config/apiUrls';
 
-const BASE_URL = 'https://front-school-strapi.ktsdev.ru/api/';
 const POPULATE_ITEMS = ['ingradients', 'equipments', 'directions.image', 'images', 'category'];
-
-export interface Ingradients {
-    id: number,
-    name: string,
-    amount: number,
-    unit: string
-}
-
-export interface Equipments {
-    id: number,
-    name: string
-}
-
-export interface Directions {
-    id: number,
-    description: string
-}
-
-export interface RecipeInfo {
-    name: string,
-    preparationTime?: number,
-    cookingTime?: number,
-    totalTime?: number,
-    likes?: number,
-    servings?: number,
-    rating?: number,
-    summary: string,
-    ingradients: Ingradients[],
-    equipments: Equipments[],
-    directions: Directions[],
-    images: Images[]
-}
-
-export interface RecipeDetailData {
-    data: RecipeInfo,
-    meta: {}
-}
 
 export default class RecipeDetailStore implements IRecipeDetailStore, ILocalStore {
     private readonly _apiStore = new ApiStore(BASE_URL);
-    private _list: RecipeDetailData = {
+    private _recipe: RecipeDetailData = {
         data: {
             name: '',
             summary: '',
@@ -68,8 +31,8 @@ export default class RecipeDetailStore implements IRecipeDetailStore, ILocalStor
     private _meta: Meta = Meta.initial;
 
     constructor() {
-        makeObservable<RecipeDetailStore, PrivateFields>(this, {
-            _list: observable.ref,
+        makeObservable<RecipeDetailStore, PRIVATE_FIELDS_RECIPE>(this, {
+            _recipe: observable.ref,
             _meta: observable,
             list: computed,
             meta: computed,
@@ -79,7 +42,7 @@ export default class RecipeDetailStore implements IRecipeDetailStore, ILocalStor
     }
 
     get list(): RecipeDetailData {
-        return this._list;
+        return this._recipe;
     }
 
     get meta(): Meta {
@@ -90,7 +53,7 @@ export default class RecipeDetailStore implements IRecipeDetailStore, ILocalStor
         params: GetRecipeDetailParams
     ): Promise<void> {
         this._meta = Meta.loading;
-        this._list = {
+        this._recipe = {
             data: {
                 name: '',
                 summary: '',
@@ -108,13 +71,13 @@ export default class RecipeDetailStore implements IRecipeDetailStore, ILocalStor
                 populate: POPULATE_ITEMS,
             },
             headers: {},
-            endpoint: `${params.project}/${params.documentID}`
+            endpoint: `${RECIPE_ENDPOINT}/${params.documentID}`
         });
 
         runInAction(() => {
             if (response.success) {
                 this._meta = Meta.success;
-                this._list = {
+                this._recipe = {
                     data: response.data.data,
                     meta: {}
                 };
@@ -126,7 +89,7 @@ export default class RecipeDetailStore implements IRecipeDetailStore, ILocalStor
 
 
     reset(): void {
-        this._list = {
+        this._recipe = {
             data: {
                 name: '',
                 summary: '',

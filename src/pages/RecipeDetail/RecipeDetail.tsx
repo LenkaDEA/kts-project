@@ -15,9 +15,6 @@ import { observer } from 'mobx-react-lite';
 
 import { RecipeInfo } from 'store/RecipeDetailStore/RecipeDetailStore';
 
-export interface RecipeInfoContextType {
-    recipeCont: RecipeInfo;
-}
 
 export const RecipeInfoContext = createContext<RecipeInfoContextType>({
     recipeCont: {
@@ -39,7 +36,7 @@ const RecipeDetail: React.FC = () => {
     const recipeDetailStore = useLocalStore(() => new RecipeDetailStore());
 
     useEffect(() => {
-        recipeDetailStore.getRecipeDetail({ project: "recipes", documentID: documentId as string });
+        recipeDetailStore.getRecipeDetail({ documentID: documentId as string });
     }, [recipeDetailStore, documentId]);
 
     return (
@@ -80,7 +77,7 @@ const RecipeDetail: React.FC = () => {
                     )}
                 </div>
             </div>
-        </RecipeInfoContext.Provider>);
-}
+        </RecipeInfoContext.Provider>)
+};
 
 export default observer(RecipeDetail);

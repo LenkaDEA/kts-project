@@ -4,16 +4,14 @@ import { HTTPMethod } from 'store/ApiStore/types';
 import { Meta } from 'utils/meta'
 import { makeObservable, observable, computed, action, runInAction } from 'mobx';
 
-import { RecipeItem } from 'App/App';
+import { RecipeItem } from 'store/RootStore/RecipeStore/types';
+import { BASE_URL, RECIPE_ENDPOINT, PRIVATE_FIELDS_LIST } from 'config/apiUrls';
 
 import {
     IRecipesStore,
     GetRecipesListParams,
 } from './types';
 
-type PrivateFields = '_list' | '_meta';
-
-const BASE_URL = 'https://front-school-strapi.ktsdev.ru/api/';
 
 export interface paginationRecipeList {
     page: number,
@@ -44,7 +42,7 @@ export default class RecipesStore implements IRecipesStore, ILocalStore {
     private _meta: Meta = Meta.initial;
 
     constructor() {
-        makeObservable<RecipesStore, PrivateFields>(this, {
+        makeObservable<RecipesStore, PRIVATE_FIELDS_LIST>(this, {
             _list: observable.ref,
             _meta: observable,
             list: computed,
@@ -101,7 +99,7 @@ export default class RecipesStore implements IRecipesStore, ILocalStore {
                 }
             },
             headers: {},
-            endpoint: `${params.project}`
+            endpoint: RECIPE_ENDPOINT
         });
 
 
