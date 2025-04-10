@@ -27,7 +27,13 @@ const RecipeDetail: React.FC = () => {
         <div className={styles[`recipe`]}>
 
             <div className={styles[`recipe__title`]}>
-                <Link to='/'>
+                <Link
+                    to='#'
+                    onClick={(e) => {
+                        e.preventDefault();
+                        window.history.back();
+                    }}
+                >
                     <NaviIcon color='accent' />
                 </Link>
                 <Text view='title' maxLines={1} >{recipeDetailStore.list.data.name}</Text>

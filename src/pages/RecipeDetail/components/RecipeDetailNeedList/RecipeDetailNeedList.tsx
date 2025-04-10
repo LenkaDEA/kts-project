@@ -6,6 +6,7 @@ import styles from './RecipeDetailNeedList.module.scss';
 
 import React from 'react';
 import RecipeDetailStore from 'stores/local/RecipeDetailStore';
+import { observer } from 'mobx-react-lite';
 
 export type RecipeDetailNeedListParams = {
     recipeDetailStore: RecipeDetailStore;
@@ -49,4 +50,4 @@ const RecipeDetailNeedList: React.FC<RecipeDetailNeedListParams> = ({ recipeDeta
     </div>);
 }
 
-export default RecipeDetailNeedList;
+export default observer(RecipeDetailNeedList);

@@ -1,26 +1,24 @@
+import { useEffect } from 'react';
 import rootStore from '../instance';
 
 import { reaction } from 'mobx';
-import { useEffect } from 'react';
 
 export const useRecipesStore = (): void => {
     useEffect(() => {
-        const disposeReaction = reaction(
-            () => ({
-                search: rootStore.query.getParam('search'),
-                categories: rootStore.query.getParam('categories'),
-                page: rootStore.query.getParam('page')
-            }),
+        reaction(() => ({
+            search: rootStore.searchText.getSearchText(),
+            categories: rootStore.categories.getCategoriesChoose(),
+            page: rootStore.pagination.getCurrentPage()
+        }),
             (params) => {
                 rootStore.recipesList.getRecipesList({
                     perPage: 9,
                     page: Number(params.page) || 1,
                     search: params.search?.toString() || '',
-                    categories: params.categories?.toString().split(',') || []
+                    categories: params.categories || []
                 });
             },
-            { fireImmediately: true }
+            { fireImmediately: true, delay: 100 }
         );
-        return () => disposeReaction();
-    }, [])
+    }, []);
 };

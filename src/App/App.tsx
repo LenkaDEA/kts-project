@@ -5,10 +5,18 @@ import { Outlet } from 'react-router-dom';
 import 'styles/styles.scss';
 import { useQueryParamsStoreInit } from 'stores/global/hooks/useQueryParamsStoreInit';
 import { useRecipesStore } from 'stores/global/hooks/useRecipesStore';
+import { useSearchFilterText } from 'stores/global/hooks/useSearchFilterText';
+import { usePaginationStore } from 'stores/global/hooks/usePaginationStore';
+import { useCategoriesChooseStore } from 'stores/global/hooks/useCategoriesChooseStore';
+import { useConnector } from 'stores/global/hooks/useConnector';
 
 const App: React.FC = () => {
   useQueryParamsStoreInit();
   useRecipesStore();
+  useSearchFilterText();
+  usePaginationStore();
+  useCategoriesChooseStore();
+  useConnector();
 
   return (
     <div className={styles.app}>

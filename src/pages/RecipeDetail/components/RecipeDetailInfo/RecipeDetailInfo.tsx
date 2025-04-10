@@ -4,6 +4,7 @@ import Text from "components/Text";
 import styles from "./RecipeDetailInfo.module.scss"
 
 import RecipeDetailStore from "stores/local/RecipeDetailStore";
+import { observer } from "mobx-react-lite";
 
 type InfoItemType = {
     title: string;
@@ -36,4 +37,4 @@ const RecipeDetailInfo: React.FC<RecipeDetailInfoParams> = ({ recipeDetailStore 
     </div>)
 };
 
-export default RecipeDetailInfo;
+export default observer(RecipeDetailInfo);

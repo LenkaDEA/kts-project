@@ -55,7 +55,6 @@ export default class CategoriesStore implements ICategoriesStore, ILocalStore {
                     try {
                         this._meta = Meta.success;
                         this._list = normalizeCategoriesData(response.data);
-                        return;
                     }
                     catch (e) {
                         console.log(e);
