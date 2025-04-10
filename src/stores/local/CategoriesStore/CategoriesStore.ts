@@ -7,14 +7,11 @@ import {
     ICategoriesStore
 } from './type';
 import { BASE_URL, CATEGORIES_ENDPOINT, PRIVATE_FIELDS_LIST } from 'config/apiUrls';
-import { CategoriesData } from './type'
-
-
-
+import { CategoriesDataApi, CategoriesDataModel, normalizeCategoriesData } from 'stores/models/recipes';
 
 export default class CategoriesStore implements ICategoriesStore, ILocalStore {
     private readonly _apiStore = new ApiStore(BASE_URL);
-    private _list: CategoriesData = { data: [] };
+    private _list: CategoriesDataModel = { data: [] };
     private _meta: Meta = Meta.initial;
 
     constructor() {
@@ -28,7 +25,7 @@ export default class CategoriesStore implements ICategoriesStore, ILocalStore {
         });
     }
 
-    get list(): CategoriesData {
+    get list(): CategoriesDataModel {
         return this._list;
     }
 
@@ -42,7 +39,7 @@ export default class CategoriesStore implements ICategoriesStore, ILocalStore {
         this._meta = Meta.loading;
         this._list = { data: [] };
 
-        const response = await this._apiStore.request<CategoriesData>({
+        const response = await this._apiStore.request<CategoriesDataApi>({
             method: HTTPMethod.GET,
             data: {
                 populate: '*'
@@ -53,9 +50,16 @@ export default class CategoriesStore implements ICategoriesStore, ILocalStore {
 
         runInAction(() => {
             if (response.success) {
-                this._meta = Meta.success;
-                this._list = response.data;
-                return;
+                try {
+                    this._meta = Meta.success;
+                    this._list = normalizeCategoriesData(response.data);
+                    return;
+                }
+                catch (e) {
+                    console.log(e);
+                    this._meta = Meta.error;
+                    this._list = { data: [] };
+                }
             }
             this._meta = Meta.error;
         })

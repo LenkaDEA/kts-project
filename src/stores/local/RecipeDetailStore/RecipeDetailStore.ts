@@ -5,18 +5,17 @@ import { makeObservable, observable, computed, action, runInAction } from 'mobx'
 
 import {
     IRecipeDetailStore,
-    GetRecipeDetailParams,
-    RecipeDetailData,
-    RecipeInfo
+    GetRecipeDetailParams
 } from './types';
 
 import { BASE_URL, RECIPE_ENDPOINT, PRIVATE_FIELDS_RECIPE } from 'config/apiUrls';
+import { normalizeRecipeDetailData, RecipeDetailDataModel, RecipeInfoApi } from 'stores/models/recipes/recipesDetail';
 
 const POPULATE_ITEMS = ['ingradients', 'equipments', 'directions.image', 'images', 'category'];
 
 export default class RecipeDetailStore implements IRecipeDetailStore, ILocalStore {
     private readonly _apiStore = new ApiStore(BASE_URL);
-    private _recipe: RecipeDetailData = {
+    private _recipe: RecipeDetailDataModel = {
         data: {
             name: '',
             summary: '',
@@ -40,7 +39,7 @@ export default class RecipeDetailStore implements IRecipeDetailStore, ILocalStor
         });
     }
 
-    get list(): RecipeDetailData {
+    get list(): RecipeDetailDataModel {
         return this._recipe;
     }
 
@@ -64,7 +63,7 @@ export default class RecipeDetailStore implements IRecipeDetailStore, ILocalStor
             meta: {}
         };
 
-        const response = await this._apiStore.request<{ data: RecipeInfo }>({
+        const response = await this._apiStore.request<{ data: RecipeInfoApi }>({
             method: HTTPMethod.GET,
             data: {
                 populate: POPULATE_ITEMS,
@@ -75,12 +74,29 @@ export default class RecipeDetailStore implements IRecipeDetailStore, ILocalStor
 
         runInAction(() => {
             if (response.success) {
-                this._meta = Meta.success;
-                this._recipe = {
-                    data: response.data.data,
-                    meta: {}
-                };
-                return;
+                try {
+                    this._meta = Meta.success;
+                    this._recipe = normalizeRecipeDetailData({
+                        data: response.data.data,
+                        meta: {}
+                    });
+                    return;
+                }
+                catch (e) {
+                    console.log(e);
+                    this._meta = Meta.error;
+                    this._recipe = {
+                        data: {
+                            name: '',
+                            summary: '',
+                            ingradients: [],
+                            equipments: [],
+                            directions: [],
+                            images: []
+                        },
+                        meta: {}
+                    };
+                }
             }
             this._meta = Meta.error;
         })

@@ -2,32 +2,19 @@ import ApiStore, { HTTPMethod } from 'stores/local/ApiStore';
 import { Meta } from 'utils/meta'
 import { makeObservable, observable, computed, action, runInAction } from 'mobx';
 
-import { RecipeItem } from 'stores/global/RecipeStore/types';
 import { BASE_URL, RECIPE_ENDPOINT, PRIVATE_FIELDS_LIST } from 'config/apiUrls';
 
 import {
     IRecipesStore,
     GetRecipesListParams,
 } from './types';
-
-
-export interface paginationRecipeList {
-    page: number,
-    pageCount: number,
-    pageSize: number,
-    total: number
-}
-
-export interface RecipeData {
-    data: RecipeItem[],
-    meta: { pagination: paginationRecipeList }
-}
+import { normalizeRecipeData, RecipeDataApi, RecipeDataModel, RecipeItemModel } from 'stores/models/recipes';
 
 
 export default class RecipesStore implements IRecipesStore {
     private readonly _apiStore = new ApiStore(BASE_URL);
-    private _list: RecipeData = {
-        data: [],
+    private _list: RecipeDataModel = {
+        data: [] as RecipeItemModel[],
         meta: {
             pagination: {
                 page: 0,
@@ -49,7 +36,7 @@ export default class RecipesStore implements IRecipesStore {
         });
     }
 
-    get list(): RecipeData {
+    get list(): RecipeDataModel {
         return this._list;
     }
 
@@ -74,7 +61,7 @@ export default class RecipesStore implements IRecipesStore {
             }
         };
 
-        const response = await this._apiStore.request<RecipeData>({
+        const response = await this._apiStore.request<RecipeDataApi>({
             method: HTTPMethod.GET,
             data: {
                 populate: ['images'],
@@ -102,12 +89,30 @@ export default class RecipesStore implements IRecipesStore {
 
         runInAction(() => {
             if (response.success) {
-                this._meta = Meta.success;
-                this._list = {
-                    data: response.data.data,
-                    meta: response.data.meta
-                };
-                return;
+                try {
+                    this._meta = Meta.success;
+                    this._list = normalizeRecipeData({
+                        data: response.data.data,
+                        meta: response.data.meta
+                    });
+                    return;
+                } catch (e) {
+                    console.log(e);
+                    this._meta = Meta.error;
+                    this._list = {
+                        data: [],
+                        meta: {
+                            pagination: {
+                                page: 0,
+                                pageCount: 0,
+                                pageSize: 0,
+                                total: 0
+                            }
+
+                        }
+                    };
+                }
+
             }
             this._meta = Meta.error;
         })
