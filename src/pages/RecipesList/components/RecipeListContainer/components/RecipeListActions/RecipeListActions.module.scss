@@ -1,0 +1,20 @@
+@use 'styles/variables';
+
+.actions {
+
+    width: 100%;
+    display: flex;
+    gap: var(--space-l);
+    justify-content: space-between;
+
+    &__input {
+        width: 100%;
+    }
+
+    &__categories {
+        margin-top: var(--space-l);
+        display: flex;
+        justify-content: end;
+
+    }
+}

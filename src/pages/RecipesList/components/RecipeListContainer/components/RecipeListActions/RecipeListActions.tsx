@@ -7,10 +7,11 @@ import SearchIcon from "components/icons/SearchIcon";
 import MultiDropdown, { Option } from "components/MultiDropdown";
 
 import { useLocalStore } from "stores/local/LocalStore";
-import CategoriesStore, { CategoriesType } from "stores/local/CategoriesStore";
+import CategoriesStore from "stores/local/CategoriesStore";
 import { reaction } from "mobx";
 import rootStore from "stores/global"
 import { observer } from "mobx-react-lite";
+import { CategoriesTypeModel } from "stores/models/recipes";
 
 export type RecipeListActionsProps = {
     /** Вызывается при клике на чекбокс */
@@ -50,7 +51,7 @@ const RecipeListActions: React.FC<RecipeListActionsProps> = ({ onChangeSearch, o
                 data: categoriesStore.list.data
             }),
             ({ data }) => {
-                setCategoriesItems(data.map((item: CategoriesType) => ({
+                setCategoriesItems(data.map((item: CategoriesTypeModel) => ({
                     key: item.id,
                     value: item.title
                 })));
@@ -77,9 +78,9 @@ const RecipeListActions: React.FC<RecipeListActionsProps> = ({ onChangeSearch, o
     }, [initialCategoriesValue]);
 
     return (<div>
-        <div className={styles[`recipe-list-actions__search-container`]}>
+        <div className={styles[`actions`]}>
             <Input
-                className={styles[`recipe-list-actions__search-container__input`]}
+                className={styles[`actions__input`]}
                 value={isEnterValue
                     ? String(rootStore.query.getParam('search') ?? '')
                     : "Введи значение!"}
@@ -93,7 +94,7 @@ const RecipeListActions: React.FC<RecipeListActionsProps> = ({ onChangeSearch, o
             <Button><SearchIcon /></Button>
         </div>
 
-        <div className={styles[`recipe-list-actions__categories`]}>
+        <div className={styles[`actions__categories`]}>
             <MultiDropdown
                 options={categoriesItems}
                 value={categoriesValue}
