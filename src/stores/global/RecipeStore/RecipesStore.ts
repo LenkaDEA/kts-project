@@ -48,54 +48,45 @@ export default class RecipesStore implements IRecipesStore {
         params: GetRecipesListParams
     ): Promise<void> {
         this._meta = Meta.loading;
-        this._list = {
-            data: [],
-            meta: {
-                pagination: {
-                    page: 0,
-                    pageCount: 0,
-                    pageSize: 0,
-                    total: 0
-                }
-
-            }
-        };
-
-        const response = await this._apiStore.request<RecipeDataApi>({
-            method: HTTPMethod.GET,
-            data: {
-                populate: ['images'],
-                filters: {
-                    name: {
-                        $containsi: params.search || '',
-                    },
-                    ...(params.categories && params.categories.length > 0 && {
-                        category: {
-                            id: {
-                                $in: params.categories
+        try {
+            const response = await this._apiStore.request<RecipeDataApi>({
+                method: HTTPMethod.GET,
+                data: {
+                    populate: ['images'],
+                    filters: {
+                        name: {
+                            $containsi: params.search || '',
+                        },
+                        ...(params.categories && params.categories.length > 0 && {
+                            category: {
+                                id: {
+                                    $in: params.categories
+                                }
                             }
-                        }
-                    })
+                        })
+                    },
+                    pagination: {
+                        page: params.page,
+                        pageSize: params.perPage
+                    }
                 },
-                pagination: {
-                    page: params.page,
-                    pageSize: params.perPage
+                headers: {},
+                endpoint: RECIPE_ENDPOINT
+            });
+
+
+            runInAction(() => {
+                if (!response.success) {
+                    this._meta = Meta.error;
+                    return;
                 }
-            },
-            headers: {},
-            endpoint: RECIPE_ENDPOINT
-        });
 
-
-        runInAction(() => {
-            if (response.success) {
                 try {
-                    this._meta = Meta.success;
                     this._list = normalizeRecipeData({
                         data: response.data.data,
                         meta: response.data.meta
                     });
-                    return;
+                    this._meta = Meta.success;
                 } catch (e) {
                     console.log(e);
                     this._meta = Meta.error;
@@ -112,9 +103,11 @@ export default class RecipesStore implements IRecipesStore {
                         }
                     };
                 }
-
-            }
+            })
+        } catch (e) {
             this._meta = Meta.error;
-        })
+            console.error('Ошибка сети:', e);
+        };
+
     }
 }

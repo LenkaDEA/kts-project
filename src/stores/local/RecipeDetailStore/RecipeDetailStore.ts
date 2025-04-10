@@ -50,56 +50,56 @@ export default class RecipeDetailStore implements IRecipeDetailStore, ILocalStor
     async getRecipeDetail(
         params: GetRecipeDetailParams
     ): Promise<void> {
+        if (this._meta === Meta.loading) {
+            console.warn('Запрос уже выполняется');
+            return;
+        }
         this._meta = Meta.loading;
-        this._recipe = {
-            data: {
-                name: '',
-                summary: '',
-                ingradients: [],
-                equipments: [],
-                directions: [],
-                images: []
-            },
-            meta: {}
+
+        try {
+            const response = await this._apiStore.request<{ data: RecipeInfoApi }>({
+                method: HTTPMethod.GET,
+                data: {
+                    populate: POPULATE_ITEMS,
+                },
+                headers: {},
+                endpoint: `${RECIPE_ENDPOINT}/${params.documentID}`
+            });
+
+            runInAction(() => {
+                if (response.success) {
+                    try {
+                        this._meta = Meta.success;
+                        this._recipe = normalizeRecipeDetailData({
+                            data: response.data.data,
+                            meta: {}
+                        });
+                        return;
+                    }
+                    catch (e) {
+                        console.log(e);
+                        this._meta = Meta.error;
+                        this._recipe = {
+                            data: {
+                                name: '',
+                                summary: '',
+                                ingradients: [],
+                                equipments: [],
+                                directions: [],
+                                images: []
+                            },
+                            meta: {}
+                        };
+                    }
+                }
+                this._meta = Meta.error;
+            })
+        } catch (e) {
+            this._meta = Meta.error;
+            console.error('Ошибка сети:', e);
         };
 
-        const response = await this._apiStore.request<{ data: RecipeInfoApi }>({
-            method: HTTPMethod.GET,
-            data: {
-                populate: POPULATE_ITEMS,
-            },
-            headers: {},
-            endpoint: `${RECIPE_ENDPOINT}/${params.documentID}`
-        });
 
-        runInAction(() => {
-            if (response.success) {
-                try {
-                    this._meta = Meta.success;
-                    this._recipe = normalizeRecipeDetailData({
-                        data: response.data.data,
-                        meta: {}
-                    });
-                    return;
-                }
-                catch (e) {
-                    console.log(e);
-                    this._meta = Meta.error;
-                    this._recipe = {
-                        data: {
-                            name: '',
-                            summary: '',
-                            ingradients: [],
-                            equipments: [],
-                            directions: [],
-                            images: []
-                        },
-                        meta: {}
-                    };
-                }
-            }
-            this._meta = Meta.error;
-        })
     }
 
 

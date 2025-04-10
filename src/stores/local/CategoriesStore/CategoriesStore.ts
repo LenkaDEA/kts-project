@@ -33,36 +33,42 @@ export default class CategoriesStore implements ICategoriesStore, ILocalStore {
         return this._meta;
     }
 
-    async getCategories(
-        // params: GetCategoriesParams
-    ): Promise<void> {
+    async getCategories(): Promise<void> {
+        if (this._meta === Meta.loading) {
+            console.warn('Запрос уже выполняется');
+            return;
+        }
         this._meta = Meta.loading;
-        this._list = { data: [] };
 
-        const response = await this._apiStore.request<CategoriesDataApi>({
-            method: HTTPMethod.GET,
-            data: {
-                populate: '*'
-            },
-            headers: {},
-            endpoint: CATEGORIES_ENDPOINT
-        });
+        try {
+            const response = await this._apiStore.request<CategoriesDataApi>({
+                method: HTTPMethod.GET,
+                data: {
+                    populate: '*'
+                },
+                headers: {},
+                endpoint: CATEGORIES_ENDPOINT
+            });
 
-        runInAction(() => {
-            if (response.success) {
-                try {
-                    this._meta = Meta.success;
-                    this._list = normalizeCategoriesData(response.data);
-                    return;
+            runInAction(() => {
+                if (response.success) {
+                    try {
+                        this._meta = Meta.success;
+                        this._list = normalizeCategoriesData(response.data);
+                        return;
+                    }
+                    catch (e) {
+                        console.log(e);
+                        this._meta = Meta.error;
+                        this._list = { data: [] };
+                    }
                 }
-                catch (e) {
-                    console.log(e);
-                    this._meta = Meta.error;
-                    this._list = { data: [] };
-                }
-            }
+                this._meta = Meta.error;
+            })
+        } catch (e) {
             this._meta = Meta.error;
-        })
+            console.error('Ошибка сети:', e);
+        };
     }
 
 
