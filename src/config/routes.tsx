@@ -10,7 +10,7 @@ export const routesConfig: RouteObject[] = [
         element: <App />,
         children: [
             {
-                index: true, //означает, что данный маршрут рендерится по умолчанию, когда URL совпадает с родительским маршрутом
+                index: true,
                 element: <RecipesList />
             },
             {

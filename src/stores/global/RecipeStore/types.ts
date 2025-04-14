@@ -1,6 +1,6 @@
 export type GetRecipesListParams = {
-    perPage?: number; // на одной странице
-    page?: number; // номер страницы
+    perPage?: number;
+    page?: number;
     search?: string;
     categories?: string[];
 };
