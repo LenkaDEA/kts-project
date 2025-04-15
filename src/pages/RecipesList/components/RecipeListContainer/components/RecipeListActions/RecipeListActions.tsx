@@ -10,6 +10,7 @@ import { useLocalStore } from "stores/local/LocalStore";
 import CategoriesStore from "stores/local/CategoriesStore";
 import rootStore from "stores/global"
 import { observer } from "mobx-react-lite";
+import { Meta } from "utils/meta";
 
 
 const RecipeListActions: React.FC = () => {
@@ -46,6 +47,7 @@ const RecipeListActions: React.FC = () => {
                     : "Введи значение!"}
                 onChange={(val: string) => {
                     rootStore.searchText.setSearchText(val);
+                    rootStore.recipesList.setMeta(Meta.loading);
                 }}
                 onClick={handleInputClick}
             >
@@ -62,6 +64,7 @@ const RecipeListActions: React.FC = () => {
                 value={selectedCategories}
                 onChange={(val: Option[]) => {
                     rootStore.categories.setCategoriesChoose(val.map((option) => option.key));
+                    rootStore.recipesList.setMeta(Meta.loading);
                 }}
                 getTitle={(values: Option[]) => values.length === 0 ? 'Выберите категорию' : `Выбрано: ${values.length}`}
             />

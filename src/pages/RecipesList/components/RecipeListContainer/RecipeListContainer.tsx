@@ -13,6 +13,8 @@ import Pagination from "components/Pagination";
 
 import { observer } from 'mobx-react-lite';
 import rootStore from "stores/global";
+import { Meta } from "utils/meta";
+import Loader from "components/Loader";
 
 const RecipeListContainer: React.FC = () => {
     const navigate = useNavigate();
@@ -21,7 +23,7 @@ const RecipeListContainer: React.FC = () => {
         <div className={classNames(styles[`recipe-box`])}>
             <RecipeListActions />
 
-            <div className={styles[`recipe-box__recipes-list`]}>
+            {rootStore.recipesList.meta === Meta.loading ? <Loader /> : <div className={styles[`recipe-box__recipes-list`]}>
                 {rootStore.recipesList.list.data.map(item =>
                     <Card
                         key={item.documentId}
@@ -38,15 +40,17 @@ const RecipeListContainer: React.FC = () => {
                             </div>}
                     />
                 )}
-            </div>
+            </div>}
 
-            <Pagination
-                currentPage={rootStore.pagination.getCurrentPage()}
-                pageCount={rootStore.recipesList.list.meta.pagination.pageCount}
-                onPageChange={(page) => {
-                    rootStore.pagination.setCurrentPage(page);
-                }}
-            />
+            {(rootStore.recipesList.meta === Meta.success || rootStore.recipesList.meta === Meta.initial)
+                && <Pagination
+                    currentPage={rootStore.pagination.getCurrentPage()}
+                    pageCount={rootStore.recipesList.list.meta.pagination.pageCount}
+                    onPageChange={(page) => {
+                        rootStore.pagination.setCurrentPage(page);
+                        rootStore.recipesList.setMeta(Meta.loading);
+                    }}
+                />}
 
         </div >);
 }

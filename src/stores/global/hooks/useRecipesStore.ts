@@ -11,7 +11,7 @@ export const useRecipesStore = (): void => {
             page: rootStore.pagination.getCurrentPage()
         }),
             (params) => {
-                rootStore.recipesList.getRecipesList({
+                rootStore.recipesList.getRecipesListDebounced({
                     perPage: 9,
                     page: Number(params.page) || 1,
                     search: params.search?.toString() || '',

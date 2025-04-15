@@ -3,6 +3,9 @@
 .recipe-box {
     padding-left: 10vw;
     padding-right: 10vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
     &__recipes-list {
         margin-top: var(--space-xxl);

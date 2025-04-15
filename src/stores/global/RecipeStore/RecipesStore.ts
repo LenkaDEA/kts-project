@@ -26,13 +26,17 @@ export default class RecipesStore implements IRecipesStore {
     };
     private _meta: Meta = Meta.initial;
 
+    private _lastCallTimer: ReturnType<typeof setTimeout> | null = null;
+
     constructor() {
         makeObservable<RecipesStore, PRIVATE_FIELDS_LIST>(this, {
             _list: observable.ref,
             _meta: observable,
             list: computed,
             meta: computed,
-            getRecipesList: action
+            getRecipesList: action,
+            setMeta: action,
+            getRecipesListDebounced: action,
         });
     }
 
@@ -44,10 +48,28 @@ export default class RecipesStore implements IRecipesStore {
         return this._meta;
     }
 
+    setMeta(value: Meta) {
+        this._meta = value;
+    }
+
     async getRecipesList(
         params: GetRecipesListParams
     ): Promise<void> {
-        this._meta = Meta.loading;
+        runInAction(() => {
+            this._meta = Meta.loading;
+            this._list = {
+                data: [],
+                meta: {
+                    pagination: {
+                        page: 0,
+                        pageCount: 0,
+                        pageSize: 0,
+                        total: 0
+                    }
+                }
+            };
+        });
+
         try {
             const response = await this._apiStore.request<RecipeDataApi>({
                 method: HTTPMethod.GET,
@@ -108,6 +130,19 @@ export default class RecipesStore implements IRecipesStore {
             this._meta = Meta.error;
             console.error('Ошибка сети:', e);
         };
-
     }
+
+    getRecipesListDebounced = this.debounce(this.getRecipesList, 500);
+
+    private debounce<F extends (...args: any[]) => any>(func: F, wait: number) {
+        return (...args: Parameters<F>): void => {
+            if (this._lastCallTimer) {
+                clearTimeout(this._lastCallTimer);
+            }
+            this._lastCallTimer = setTimeout(() => {
+                func.apply(this, args);
+            }, wait);
+        };
+    }
+
 }
