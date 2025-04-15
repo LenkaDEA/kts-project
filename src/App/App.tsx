@@ -10,6 +10,7 @@ import { usePaginationStore } from 'stores/global/hooks/usePaginationStore';
 import { useCategoriesChooseStore } from 'stores/global/hooks/useCategoriesChooseStore';
 import { useConnector } from 'stores/global/hooks/useConnector';
 
+
 const App: React.FC = () => {
   useQueryParamsStoreInit();
   useRecipesStore();
@@ -18,14 +19,16 @@ const App: React.FC = () => {
   useCategoriesChooseStore();
   useConnector();
 
+  const mediaQuery = window.matchMedia('(min-width: 768px)');
+
   return (
     <div className={styles.app}>
-      <div className={styles[`app__background--container`]}>
+      {mediaQuery.matches && <div className={styles[`app__background--container`]}>
         <img
           className={styles.app__background}
           src='src/assets/bgrecipe.svg'
         />
-      </div>
+      </div>}
       <NavBar />
       <Outlet />
     </div>

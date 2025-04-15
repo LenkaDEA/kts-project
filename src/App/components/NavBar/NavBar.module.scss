@@ -1,6 +1,10 @@
 @use 'styles/variables';
 
 .navbar {
+    position: fixed;
+    top: 0;
+    right: 0px;
+    left: 0px;
     height: 64px;
     background-color: var(--bg-items);
 
@@ -12,7 +16,7 @@
     align-items: center;
     justify-content: space-between;
 
-
+    z-index: 100;
 
     &__logo {
         display: flex;
@@ -30,5 +34,16 @@
         display: flex;
         gap: var(--space-m);
         align-items: center;
+    }
+
+    &__menu {
+        position: fixed;
+        top: 64px;
+        right: 0px;
+        padding: 15px;
+        background-color: var(--bg-items);
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
     }
 }

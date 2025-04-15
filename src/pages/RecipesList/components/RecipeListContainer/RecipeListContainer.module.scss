@@ -20,3 +20,12 @@
         }
     }
 }
+
+@media (max-width: 768px) {
+    .recipe-box {
+        &__recipes-list {
+            grid-template-columns: repeat(1, 1fr);
+
+        }
+    }
+}

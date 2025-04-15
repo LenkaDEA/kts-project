@@ -5,12 +5,25 @@
     width: 100%;
     grid-template-columns: repeat(3, 100px);
     grid-template-rows: repeat(2, 50px);
-    gap: 100px;
+    row-gap: 50%;
+    column-gap: 10%;
 
     &__info-box {
         display: flex;
         flex-direction: column;
         gap: var(--space-xxs);
         align-items: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .info-grid {
+        gap: 10%;
+
+        justify-content: center;
+
+        &__info-box {
+            gap: 4px;
+        }
     }
 }

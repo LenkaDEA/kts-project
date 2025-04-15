@@ -3,10 +3,11 @@
 .recipe {
     margin-top: var(--space-xxl);
     margin-bottom: var(--space-xxl);
-    padding-left: 10vw;
-    padding-right: 10vw;
+    padding-left: 1vw;
+    padding-right: 1vw;
 
     position: relative;
+
 
     &__title {
         display: flex;
@@ -49,6 +50,26 @@
             display: flex;
             flex-direction: column;
             gap: var(--space-xs);
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .recipe {
+        &__brief-info {
+            flex-direction: column;
+
+            &_picture {
+                width: 100%;
+                height: 100%;
+            }
+        }
+
+        &__directions {
+
+            margin-right: var(--space-xxs);
+            margin-left: var(--space-xxs);
+
         }
     }
 }
