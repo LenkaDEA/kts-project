@@ -47,3 +47,9 @@
         gap: 24px;
     }
 }
+
+@media print {
+    .navbar {
+        display: none;
+    }
+}

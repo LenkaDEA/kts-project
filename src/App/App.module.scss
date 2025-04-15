@@ -8,7 +8,6 @@
   &__background {
     pointer-events: none;
 
-
     &--container {
       position: absolute;
       top: -64px;
@@ -19,6 +18,14 @@
       justify-content: end;
 
 
+    }
+  }
+}
+
+@media print {
+  .app {
+    &__background {
+      display: none;
     }
   }
 }

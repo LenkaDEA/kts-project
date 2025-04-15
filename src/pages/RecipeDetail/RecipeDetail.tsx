@@ -12,6 +12,7 @@ import parse from 'html-react-parser';
 import { useLocalStore } from "stores/local/LocalStore";
 import RecipeDetailStore from "stores/local/RecipeDetailStore";
 import { observer } from 'mobx-react-lite';
+import RecipeActions from './components/RecipeActions';
 
 const RecipeDetail: React.FC = () => {
 
@@ -27,15 +28,17 @@ const RecipeDetail: React.FC = () => {
         <div className={styles[`recipe`]}>
 
             <div className={styles[`recipe__title`]}>
-                <Link
-                    to='#'
-                    onClick={(e) => {
-                        e.preventDefault();
-                        window.history.back();
-                    }}
-                >
-                    <NaviIcon color='accent' />
-                </Link>
+                <div className={styles[`recipe__title_icon`]}>
+                    <Link
+                        to='#'
+                        onClick={(e) => {
+                            e.preventDefault();
+                            window.history.back();
+                        }}>
+                        <NaviIcon color='accent' />
+                    </Link>
+                </div>
+
                 <Text view='title' maxLines={1} >{recipeDetailStore.list.data.name}</Text>
             </div>
 
@@ -44,7 +47,11 @@ const RecipeDetail: React.FC = () => {
                     className={styles[`recipe__brief-info_picture`]}
                     src={recipeDetailStore.list.data.images?.[0]?.url || 'src/assets/defaultrecipe.png'}
                 />
-                <RecipeDetailInfo recipeDetailStore={recipeDetailStore} />
+                <div className={styles['recipe__brief-info-conteiner']}>
+                    <RecipeDetailInfo recipeDetailStore={recipeDetailStore} />
+                    <RecipeActions />
+                </div>
+
             </div>
 
             <div className={styles[`recipe__about`]}>
