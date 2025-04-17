@@ -9,22 +9,14 @@ export const useConnector = (): void => {
 
     useEffect(() => {
         reaction(() => ({
-            page: rootStore.pagination.getCurrentPage(),
-            search: rootStore.searchText.getSearchText(),
-            categories: rootStore.categories.getCategoriesChoose().join(',')
+            page: rootStore.pagination.page,
+            search: rootStore.searchText.searchText,
+            categories: rootStore.categories.categories.join(',')
         }), (params) => {
 
             const newSearchParams = new URLSearchParams(location.search);
 
-            newSearchParams.set('page', `${params.page}`);
-            if (!params.page) {
-                newSearchParams.delete('page');
-            }
-
             if (params.search) {
-                if (newSearchParams.get('search') !== params.search) {
-                    newSearchParams.set('page', '1');
-                }
                 newSearchParams.set('search', params.search);
             }
             else {
@@ -32,9 +24,6 @@ export const useConnector = (): void => {
             }
 
             if (params.categories.length !== 0) {
-                if (newSearchParams.get('categories') !== params.categories) {
-                    newSearchParams.set('page', '1');
-                }
                 newSearchParams.set('categories', params.categories);
             } else {
                 newSearchParams.delete('categories');

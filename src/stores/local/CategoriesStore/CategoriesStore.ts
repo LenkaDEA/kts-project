@@ -6,7 +6,7 @@ import { makeObservable, observable, computed, action, runInAction } from 'mobx'
 import {
     ICategoriesStore
 } from './type';
-import { BASE_URL, CATEGORIES_ENDPOINT, PRIVATE_FIELDS_LIST } from 'config/apiUrls';
+import { BASE_URL, CATEGORIES_ENDPOINT, PRIVATE_FIELDS_CATEGORIES } from 'config/apiUrls';
 import { CategoriesDataApi, CategoriesDataModel, normalizeCategoriesData } from 'stores/models/recipes';
 
 export default class CategoriesStore implements ICategoriesStore, ILocalStore {
@@ -15,7 +15,7 @@ export default class CategoriesStore implements ICategoriesStore, ILocalStore {
     private _meta: Meta = Meta.initial;
 
     constructor() {
-        makeObservable<CategoriesStore, PRIVATE_FIELDS_LIST>(this, {
+        makeObservable<CategoriesStore, PRIVATE_FIELDS_CATEGORIES>(this, {
             _list: observable.ref,
             _meta: observable,
             list: computed,

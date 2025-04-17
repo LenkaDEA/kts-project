@@ -19,7 +19,7 @@ const RecipeListActions: React.FC = () => {
 
     const categoriesStore = useLocalStore(() => new CategoriesStore());
 
-    const categoryKeys = rootStore.categories.getCategoriesChoose();
+    const categoryKeys = rootStore.categories.categories;
 
     const handleInputClick = () => {
         setIsEnterValue(true);
@@ -43,7 +43,7 @@ const RecipeListActions: React.FC = () => {
             <Input
                 className={styles[`actions__input`]}
                 value={isEnterValue
-                    ? rootStore.searchText.getSearchText()
+                    ? rootStore.searchText.searchText
                     : "Введи значение!"}
                 onChange={(val: string) => {
                     rootStore.searchText.setSearchText(val);

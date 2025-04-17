@@ -1,26 +1,24 @@
 
-import { action, makeObservable, observable } from "mobx";
+import { action, computed, makeObservable, observable } from "mobx";
 
 type PrivateFields = '_page';
 
 export default class PaginationStore {
-    private _page: number = 1;
+    private _page: number = 0;
 
     constructor() {
         makeObservable<PaginationStore, PrivateFields>(this, {
             _page: observable.ref,
-            setCurrentPage: action
+            page: computed,
+            setCurrentPage: action,
         });
-
-        const urlParam = new URLSearchParams(window.location.search);
-        this._page = Number(urlParam.get('page')) || 1;
     };
 
     setCurrentPage(currentPage: number) {
         this._page = currentPage;
     };
 
-    getCurrentPage(): number {
+    get page(): number {
         return this._page;
     }
 };

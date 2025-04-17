@@ -10,6 +10,8 @@ import {
 } from './types';
 import { normalizeRecipeData, RecipeDataApi, RecipeDataModel, RecipeItemModel } from 'stores/models/recipes';
 
+import rootStore from 'stores/global';
+
 
 export default class RecipesStore implements IRecipesStore {
     private readonly _apiStore = new ApiStore(BASE_URL);
@@ -24,6 +26,8 @@ export default class RecipesStore implements IRecipesStore {
             }
         }
     };
+    private _listView: RecipeItemModel[] = [];
+
     private _meta: Meta = Meta.initial;
 
     private _lastCallTimer: ReturnType<typeof setTimeout> | null = null;
@@ -32,16 +36,23 @@ export default class RecipesStore implements IRecipesStore {
         makeObservable<RecipesStore, PRIVATE_FIELDS_LIST>(this, {
             _list: observable.ref,
             _meta: observable,
+            _listView: observable.ref,
             list: computed,
             meta: computed,
+            listView: computed,
             getRecipesList: action,
             setMeta: action,
             getRecipesListDebounced: action,
+            setListView: action
         });
     }
 
     get list(): RecipeDataModel {
         return this._list;
+    }
+
+    get listView(): RecipeItemModel[] {
+        return this._listView;
     }
 
     get meta(): Meta {
@@ -50,6 +61,10 @@ export default class RecipesStore implements IRecipesStore {
 
     setMeta(value: Meta) {
         this._meta = value;
+    }
+
+    setListView(list: RecipeItemModel[]) {
+        this._listView = list;
     }
 
     async getRecipesList(
@@ -96,7 +111,6 @@ export default class RecipesStore implements IRecipesStore {
                 endpoint: RECIPE_ENDPOINT
             });
 
-
             runInAction(() => {
                 if (!response.success) {
                     this._meta = Meta.error;
@@ -108,7 +122,20 @@ export default class RecipesStore implements IRecipesStore {
                         data: response.data.data,
                         meta: response.data.meta
                     });
+
+                    this._listView.push(...this._list.data.map(item => ({
+                        documentId: item.documentId,
+                        name: item.name,
+                        calories: item.calories,
+                        summary: item.summary,
+                        images: item.images,
+                        totalTime: item.totalTime
+                    })));
+
                     this._meta = Meta.success;
+
+                    rootStore.searchText.setActive(false);
+                    rootStore.categories.setActive(false);
                 } catch (e) {
                     console.log(e);
                     this._meta = Meta.error;

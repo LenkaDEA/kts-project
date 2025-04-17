@@ -7,8 +7,16 @@
     flex-direction: column;
     align-items: center;
 
+    min-height: 100vh;
+
+    &__loader {
+        display: flex;
+        align-content: center;
+    }
+
     &__recipes-list {
         margin-top: var(--space-xxl);
+        margin-bottom: var(--space-xxl);
         width: 100vw;
         display: grid;
         grid-template-columns: repeat(3, 1fr);
