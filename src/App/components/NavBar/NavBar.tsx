@@ -8,6 +8,7 @@ import TitleLinks from "./config";
 import logo from "assets/food-logo.svg";
 import { useMediaQuery } from "utils/styles";
 import MenuIcon from "components/icons/MenuIcon";
+import { Link } from "react-router-dom";
 
 const NavBar: React.FC = () => {
 
@@ -60,7 +61,10 @@ const NavBar: React.FC = () => {
 
             {isDesktop && <div className={styles['navbar__users-icons']}>
                 <LikeIcon color="accent" />
-                <UserIcon color="accent" />
+                <Link to='/my'>
+                    <UserIcon color="accent" />
+                </Link>
+
 
             </div>}
 
@@ -72,7 +76,10 @@ const NavBar: React.FC = () => {
             {isMenuOpen && <div ref={wrapperRef} className={styles['navbar__menu']}>
                 <div className={styles['navbar__users-icons']}>
                     <LikeIcon color="accent" />
-                    <UserIcon color="accent" />
+                    <Link to='/my'>
+                        <UserIcon color="accent" />
+                    </Link>
+
 
                 </div >
                 {TitleLinks.map(item =>

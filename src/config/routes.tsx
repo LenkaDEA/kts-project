@@ -2,6 +2,9 @@ import { RouteObject } from "react-router-dom";
 import App from "../App";
 import RecipeDetail from "../pages/RecipeDetail";
 import RecipesList from "../pages/RecipesList/RecipesList";
+import LoginForm from "pages/LoginForm";
+import UserPage from "pages/UserPage";
+import ProtectedRoute from "components/ProtectedRoute";
 
 
 export const routesConfig: RouteObject[] = [
@@ -20,6 +23,18 @@ export const routesConfig: RouteObject[] = [
             {
                 path: '/recipe/:documentId',
                 element: <RecipeDetail />
+            },
+            {
+                path: '/login',
+                element: <LoginForm />
+            },
+            {
+                path: '/my',
+                element: (
+                    <ProtectedRoute>
+                        <UserPage />
+                    </ProtectedRoute>
+                )
             }
         ]
     }

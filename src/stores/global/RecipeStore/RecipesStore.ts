@@ -159,7 +159,7 @@ export default class RecipesStore implements IRecipesStore {
         };
     }
 
-    getRecipesListDebounced = this.debounce(this.getRecipesList, 500);
+    getRecipesListDebounced = this.debounce(this.getRecipesList, 300);
 
     private debounce<F extends (...args: any[]) => any>(func: F, wait: number) {
         return (...args: Parameters<F>): void => {
