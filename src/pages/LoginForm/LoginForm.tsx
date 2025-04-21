@@ -17,7 +17,7 @@ const LoginForm: React.FC = () => {
     useEffect(() => {
         autorun(() => {
             if (rootStore.auth.initialization) {
-                navigate('/');
+                navigate('/my');
             }
         })
     }, [rootStore.auth.initialization]);

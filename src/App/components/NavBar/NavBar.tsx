@@ -9,6 +9,7 @@ import logo from "assets/food-logo.svg";
 import { useMediaQuery } from "utils/styles";
 import MenuIcon from "components/icons/MenuIcon";
 import { Link } from "react-router-dom";
+import rootStore from "stores/global";
 
 const NavBar: React.FC = () => {
 
@@ -44,10 +45,20 @@ const NavBar: React.FC = () => {
     return (
         <div className={styles.navbar}>
 
-            <div className={styles.navbar__logo} >
+            <div
+                className={styles.navbar__logo}
+
+                onClick={() => {
+                    rootStore.searchText.setSearchText('');
+                    rootStore.categories.setCategoriesChoose([]);
+                    window.location.replace('/');
+                }}>
+
                 <img src={logo} />
                 <Text view="p-20" color="primary" weight="bold">Food Client</Text>
+
             </div>
+
             {isDesktop && <div className={styles.navbar__conteiner}>
                 {TitleLinks.map(item =>
                     <Text

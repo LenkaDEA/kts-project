@@ -123,7 +123,12 @@ export default class RecipesStore implements IRecipesStore {
                         meta: response.data.meta
                     });
 
-                    this._listView.push(...this._list.data.map(item => ({
+                    const existingDocumentIds = new Set(this._listView.map(item => item.documentId));
+                    const newDataItems = this._list.data.filter(item =>
+                        !existingDocumentIds.has(item.documentId)
+                    );
+
+                    this._listView.push(...newDataItems.map(item => ({
                         documentId: item.documentId,
                         name: item.name,
                         calories: item.calories,
