@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import styles from './NavBar.module.scss'
 
 import Text from "components/Text";
-import LikeIcon from "components/icons/LikeIcon";
 import UserIcon from "components/icons/UserIcon";
 import TitleLinks from "./config";
 import logo from "assets/food-logo.svg";
@@ -80,13 +79,10 @@ const NavBar: React.FC = () => {
                 )}
             </div>}
 
-
             {isDesktop && <div className={styles['navbar__users-icons']}>
-                <LikeIcon color="accent" />
                 <Link to='/my'>
                     <UserIcon color="accent" />
                 </Link>
-
 
             </div>}
 
@@ -97,11 +93,9 @@ const NavBar: React.FC = () => {
 
             {isMenuOpen && <div ref={wrapperRef} className={styles['navbar__menu']}>
                 <div className={styles['navbar__users-icons']}>
-                    <LikeIcon color="accent" />
                     <Link to='/my'>
                         <UserIcon color="accent" />
                     </Link>
-
 
                 </div >
                 {TitleLinks.map(item =>
