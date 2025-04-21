@@ -55,6 +55,7 @@ const RecipeListActions: React.FC = () => {
 
         <div className={styles[`actions__categories`]}>
             <MultiDropdown
+                className={styles.actions__categories_multidrop}
                 options={categoriesStore.list.data.map(item => ({
                     key: item.id,
                     value: item.title,

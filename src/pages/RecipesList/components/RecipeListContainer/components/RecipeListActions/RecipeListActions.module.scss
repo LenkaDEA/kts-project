@@ -16,5 +16,19 @@
         display: flex;
         justify-content: end;
 
+        &_multidrop {
+            margin: 0px;
+        }
+
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .actions {
+        &__categories {
+            &_multidrop {
+                width: 100% !important;
+            }
+        }
     }
 }

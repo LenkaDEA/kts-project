@@ -79,30 +79,26 @@ const NavBar: React.FC = () => {
                 )}
             </div>}
 
-            {isDesktop && <div className={styles['navbar__users-icons']}>
-                <Link to='/my'>
+
+            <div className={styles.navbar__actions}>
+                <Link className={styles.navbar__actions_link} to='/my'>
                     <UserIcon color="accent" />
                 </Link>
 
-            </div>}
+                {!isDesktop && <MenuIcon color="accent" onMouseDown={(e) => {
+                    e.stopPropagation();
+                    handleClickMenu();
+                }} />}
+            </div>
 
-            {!isDesktop && <MenuIcon color="accent" onMouseDown={(e) => {
-                e.stopPropagation();
-                handleClickMenu();
-            }} />}
 
             {isMenuOpen && <div ref={wrapperRef} className={styles['navbar__menu']}>
-                <div className={styles['navbar__users-icons']}>
-                    <Link to='/my'>
-                        <UserIcon color="accent" />
-                    </Link>
-
-                </div >
                 {TitleLinks.map(item =>
                     <Link
                         key={item.link}
                         className={styles.navbar__conteiner_text}
-                        to={{ pathname: item.link, search: urlSearch }}>
+                        to={{ pathname: item.link, search: urlSearch }}
+                        onClick={() => { handleClickMenu() }}>
                         <Text
                             key={item.link}
                             view="p-16"

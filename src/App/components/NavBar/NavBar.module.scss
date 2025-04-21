@@ -36,6 +36,19 @@
         }
     }
 
+    &__actions {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: var(--space-m);
+
+        &_link {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+
     &__users-icons {
         display: flex;
         gap: var(--space-m);
