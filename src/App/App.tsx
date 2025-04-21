@@ -8,6 +8,7 @@ import { useRecipesStore } from 'stores/global/hooks/useRecipesStore';
 import { useSearchFilterText } from 'stores/global/hooks/useSearchFilterText';
 import { useCategoriesChooseStore } from 'stores/global/hooks/useCategoriesChooseStore';
 import { useConnector } from 'stores/global/hooks/useConnector';
+import { useAuthStore } from 'stores/global/hooks/useAuthStore';
 
 
 const App: React.FC = () => {
@@ -16,6 +17,7 @@ const App: React.FC = () => {
   useSearchFilterText();
   useCategoriesChooseStore();
   useConnector();
+  useAuthStore();
 
   const mediaQuery = window.matchMedia('(min-width: 768px)');
 
