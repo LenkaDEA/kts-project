@@ -8,14 +8,17 @@ import TitleLinks from "./config";
 import logo from "assets/food-logo.svg";
 import { useMediaQuery } from "utils/styles";
 import MenuIcon from "components/icons/MenuIcon";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import rootStore from "stores/global";
+import { observer } from "mobx-react-lite";
 
 const NavBar: React.FC = () => {
 
     const isDesktop = useMediaQuery('(min-width: 768px)');
     const [isMenuOpen, setMenuOpen] = useState<boolean>(false);
     const wrapperRef = React.useRef<HTMLDivElement>(null);
+    const location = useLocation();
+    const urlSearch = rootStore.query.search;
 
     const handleClickMenu = () => {
         isMenuOpen ? setMenuOpen(false) : setMenuOpen(true);
@@ -61,12 +64,20 @@ const NavBar: React.FC = () => {
 
             {isDesktop && <div className={styles.navbar__conteiner}>
                 {TitleLinks.map(item =>
-                    <Text
+                    <Link
                         key={item.link}
-                        view="p-16"
-                        color={item.link === '/' ? "accent" : "primary"} //TODO: add links
-                        maxLines={1}>{item.title}
-                    </Text>)}
+                        className={styles.navbar__conteiner_text}
+                        to={{ pathname: item.link, search: urlSearch }}
+
+                    >
+                        <Text
+                            key={item.link}
+                            view="p-16"
+                            color={location.pathname === item.link ? "accent" : "primary"}
+                            maxLines={1}>{item.title}
+                        </Text>
+                    </Link>
+                )}
             </div>}
 
 
@@ -94,16 +105,21 @@ const NavBar: React.FC = () => {
 
                 </div >
                 {TitleLinks.map(item =>
-                    <Text
+                    <Link
                         key={item.link}
-                        view="p-16"
-                        color={item.link === '/' ? "accent" : "primary"} //TODO: add links
-                        maxLines={1}>{item.title}
-                    </Text>)}
+                        className={styles.navbar__conteiner_text}
+                        to={{ pathname: item.link, search: urlSearch }}>
+                        <Text
+                            key={item.link}
+                            view="p-16"
+                            color={location.pathname === item.link ? "accent" : "primary"}
+                            maxLines={1}>{item.title}
+                        </Text>
+                    </Link>)}
             </div>}
 
         </div>
     );
 }
 
-export default NavBar;
+export default observer(NavBar);

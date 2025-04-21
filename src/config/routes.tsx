@@ -5,6 +5,7 @@ import RecipesList from "../pages/RecipesList/RecipesList";
 import LoginForm from "pages/LoginForm";
 import UserPage from "pages/UserPage";
 import ProtectedRoute from "components/ProtectedRoute";
+import MealsCategories from "pages/MealsCategories";
 
 
 export const routesConfig: RouteObject[] = [
@@ -23,6 +24,10 @@ export const routesConfig: RouteObject[] = [
             {
                 path: '/recipe/:documentId',
                 element: <RecipeDetail />
+            },
+            {
+                path: '/meals-categories',
+                element: <MealsCategories />
             },
             {
                 path: '/login',

@@ -30,6 +30,10 @@
         display: flex;
         gap: var(--space-m);
         align-items: center;
+
+        &_text {
+            text-decoration: none !important;
+        }
     }
 
     &__users-icons {

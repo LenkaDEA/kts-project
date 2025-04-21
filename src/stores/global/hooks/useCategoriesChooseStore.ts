@@ -6,8 +6,9 @@ export const useCategoriesChooseStore = (): void => {
     useEffect(() => {
         autorun(
             () => {
-                if (rootStore.query.getParam('categories'))
-                    rootStore.categories.setCategoriesChoose(String(rootStore.query.getParam('categories') || '').split(','));
+                rootStore.categories.setCategoriesChoose(rootStore.query.getParam('categories')
+                    ? String(rootStore.query.getParam('categories')).split(',')
+                    : []);
             }
         )
     }, [])
