@@ -27,7 +27,7 @@ const NavBar: React.FC = () => {
     const handleLogoClick = () => {
         rootStore.searchText.setSearchText('');
         rootStore.categories.setCategoriesChoose([]);
-        window.location.replace('/');
+        window.location.replace(import.meta.env.BASE_URL);
     };
 
     React.useEffect(() => {

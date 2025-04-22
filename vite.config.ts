@@ -22,4 +22,10 @@ export default defineConfig({
   resolve: {
     alias: parseTsConfigPaths(tsconfig.compilerOptions.paths),
   },
+  base: '/kts-project/',
+  build: {
+    assetsDir: 'assets',
+    outDir: 'dist'
+  }
 })
+

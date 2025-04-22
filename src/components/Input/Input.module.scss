@@ -6,7 +6,7 @@
 
     padding-top: var(--space-s);
     padding-right: var(--space-xs);
-    padding-bottom: var(--space-xxs);
+    padding-bottom: var(--space-s);
     padding-left: var(--space-xs);
 
     display: flex;
@@ -26,6 +26,7 @@
     }
 
     &__input--container:focus-within {
+        background-color: aqua;
         border-width: 1px;
         border-style: solid;
         border-color: var(--input-border-focus);

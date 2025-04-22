@@ -1,4 +1,3 @@
-import React from 'react';
 import { IconProps } from './Icon';
 import CheckIcon from './CheckIcon';
 import ArrowDownIcon from './ArrowDownIcon';
@@ -11,7 +10,7 @@ export default {
     },
     color: {
       options: ['primary', 'secondary', 'accent'],
-      mapping:  ['primary', 'secondary', 'accent'],
+      mapping: ['primary', 'secondary', 'accent'],
       control: 'select'
     },
     width: {
@@ -24,8 +23,8 @@ export default {
 };
 
 export const Default = (props: IconProps) => (
-    <div style={{ display: 'flex', gap: '20px'}}>
-      <CheckIcon {...props} />
-      <ArrowDownIcon {...props} />
-    </div>
+  <div style={{ display: 'flex', gap: '20px' }}>
+    <CheckIcon {...props} />
+    <ArrowDownIcon {...props} />
+  </div>
 );

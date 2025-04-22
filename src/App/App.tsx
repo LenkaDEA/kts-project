@@ -3,6 +3,7 @@ import NavBar from 'App/components/NavBar';
 import { Outlet } from 'react-router-dom';
 
 import 'styles/styles.scss';
+import bgrecipe from 'assets/bgrecipe.svg';
 import { useQueryParamsStoreInit } from 'stores/global/hooks/useQueryParamsStoreInit';
 import { useRecipesStore } from 'stores/global/hooks/useRecipesStore';
 import { useSearchFilterText } from 'stores/global/hooks/useSearchFilterText';
@@ -27,7 +28,7 @@ const App: React.FC = () => {
       {mediaQuery.matches && <div className={styles[`app__background--container`]}>
         <img
           className={styles.app__background}
-          src='src/assets/bgrecipe.svg'
+          src={bgrecipe}
         />
       </div>}
       <NavBar />

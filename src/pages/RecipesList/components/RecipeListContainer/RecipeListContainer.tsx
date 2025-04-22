@@ -17,6 +17,7 @@ import Loader from "components/Loader";
 
 const RecipeListContainer: React.FC = () => {
     const navigate = useNavigate();
+    const urlSearch = rootStore.query.search;
 
     const scrollState = useLocalObservable(() => ({
         get hasMore(): boolean {
@@ -54,7 +55,7 @@ const RecipeListContainer: React.FC = () => {
                             title={item.name}
                             subtitle={parse(item.summary)}
                             contentSlot={`${item.calories}kcal`}
-                            onClick={() => navigate(`/recipe/${item.documentId}`)}
+                            onClick={() => navigate({ pathname: `/recipe/${item.documentId}`, search: urlSearch })}
                             captionSlot={
                                 <div className={styles[`recipe-box__recipes-list_total-time`]}>
                                     <TimerIcon color="accent" />
