@@ -15,12 +15,12 @@ export type InputProps = Omit<
   afterSlot?: React.ReactNode;
 };
 
-const Input = React.forwardRef<HTMLInputElement, InputProps>(({ className, value, onChange, afterSlot, ...props }, ref) => {
+const Input = React.forwardRef<HTMLInputElement, InputProps>(({ className, value, onChange, afterSlot, type = 'text', ...props }, ref) => {
   return <div className={classNames(styles.input, className)}>
     <input
       {...props}
       className={styles['input__my-input']}
-      type='text'
+      type={type}
       value={value}
       onChange={(e) => onChange(e.target.value)}
     />

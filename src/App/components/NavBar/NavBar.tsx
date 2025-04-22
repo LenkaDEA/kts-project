@@ -2,22 +2,33 @@ import React, { useState } from "react";
 import styles from './NavBar.module.scss'
 
 import Text from "components/Text";
-import LikeIcon from "components/icons/LikeIcon";
 import UserIcon from "components/icons/UserIcon";
 import TitleLinks from "./config";
 import logo from "assets/food-logo.svg";
 import { useMediaQuery } from "utils/styles";
 import MenuIcon from "components/icons/MenuIcon";
+import { Link, useLocation } from "react-router-dom";
+import rootStore from "stores/global";
+import { observer } from "mobx-react-lite";
+import { DEVICE_BREAKPOINTS } from "config/deviceBreakpoints";
 
 const NavBar: React.FC = () => {
 
-    const isDesktop = useMediaQuery('(min-width: 768px)');
+    const isDesktop = useMediaQuery(DEVICE_BREAKPOINTS.DESKTOP);
     const [isMenuOpen, setMenuOpen] = useState<boolean>(false);
     const wrapperRef = React.useRef<HTMLDivElement>(null);
+    const location = useLocation();
+    const urlSearch = rootStore.query.search;
 
     const handleClickMenu = () => {
-        isMenuOpen ? setMenuOpen(false) : setMenuOpen(true);
-    }
+        setMenuOpen(!isMenuOpen);
+    };
+
+    const handleLogoClick = () => {
+        rootStore.searchText.setSearchText('');
+        rootStore.categories.setCategoriesChoose([]);
+        window.location.replace('/');
+    };
 
     React.useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
@@ -43,49 +54,65 @@ const NavBar: React.FC = () => {
     return (
         <div className={styles.navbar}>
 
-            <div className={styles.navbar__logo}>
+            <div
+                className={styles.navbar__logo}
+
+                onClick={handleLogoClick}>
+
                 <img src={logo} />
                 <Text view="p-20" color="primary" weight="bold">Food Client</Text>
+
             </div>
+
             {isDesktop && <div className={styles.navbar__conteiner}>
                 {TitleLinks.map(item =>
-                    <Text
+                    <Link
                         key={item.link}
-                        view="p-16"
-                        color={item.link === '/' ? "accent" : "primary"} //TODO: add links
-                        maxLines={1}>{item.title}
-                    </Text>)}
+                        className={styles.navbar__conteiner_text}
+                        to={{ pathname: item.link, search: urlSearch }}
+
+                    >
+                        <Text
+                            key={item.link}
+                            view="p-16"
+                            color={location.pathname === item.link ? "accent" : "primary"}
+                            maxLines={1}>{item.title}
+                        </Text>
+                    </Link>
+                )}
             </div>}
 
 
-            {isDesktop && <div className={styles['navbar__users-icons']}>
-                <LikeIcon color="accent" />
-                <UserIcon color="accent" />
+            <div className={styles.navbar__actions}>
+                <Link className={styles.navbar__actions_link} to='/my'>
+                    <UserIcon color="accent" />
+                </Link>
 
-            </div>}
+                {!isDesktop && <MenuIcon color="accent" onMouseDown={(e) => {
+                    e.stopPropagation();
+                    handleClickMenu();
+                }} />}
+            </div>
 
-            {!isDesktop && <MenuIcon color="accent" onMouseDown={(e) => {
-                e.stopPropagation();
-                handleClickMenu();
-            }} />}
 
             {isMenuOpen && <div ref={wrapperRef} className={styles['navbar__menu']}>
-                <div className={styles['navbar__users-icons']}>
-                    <LikeIcon color="accent" />
-                    <UserIcon color="accent" />
-
-                </div >
                 {TitleLinks.map(item =>
-                    <Text
+                    <Link
                         key={item.link}
-                        view="p-16"
-                        color={item.link === '/' ? "accent" : "primary"} //TODO: add links
-                        maxLines={1}>{item.title}
-                    </Text>)}
+                        className={styles.navbar__conteiner_text}
+                        to={{ pathname: item.link, search: urlSearch }}
+                        onClick={() => { handleClickMenu() }}>
+                        <Text
+                            key={item.link}
+                            view="p-16"
+                            color={location.pathname === item.link ? "accent" : "primary"}
+                            maxLines={1}>{item.title}
+                        </Text>
+                    </Link>)}
             </div>}
 
         </div>
     );
 }
 
-export default NavBar;
+export default observer(NavBar);

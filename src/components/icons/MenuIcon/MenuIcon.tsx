@@ -1,7 +1,7 @@
 import * as React from 'react'
 import Icon, { IconProps } from '../Icon';
 
-const MenuIcon: React.FC<IconProps> = ({ className, color, width = 32, height = 32, ...props }) => {
+const MenuIcon: React.FC<IconProps> = ({ className, color, width = 24, height = 24, ...props }) => {
 
     return <Icon
         className={className}
@@ -10,20 +10,20 @@ const MenuIcon: React.FC<IconProps> = ({ className, color, width = 32, height = 
         height={height}
         {...props}>
         <path
-            d="M4 6L28 6"
-            strokeWidth={3}
+            d="M3 5L12 5L21 5"
+            strokeWidth={2}
             fill='none'
             strokeLinecap='round'
         />
         <path
-            d="M4 26L28 26"
-            strokeWidth={3}
+            d="M3 19L21 19"
+            strokeWidth={2}
             fill='none'
             strokeLinecap='round'
         />
         <path
-            d="M4 16L28 16"
-            strokeWidth={3}
+            d="M3 12L21 12"
+            strokeWidth={2}
             fill='none'
             strokeLinecap='round'
         />

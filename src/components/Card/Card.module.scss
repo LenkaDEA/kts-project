@@ -9,6 +9,7 @@
     padding-bottom: var(--space-xl);
     gap: var(--space-xl);
     border-radius: var(--border-radius);
+    cursor: pointer;
 
     &:hover {
         box-shadow: 0px 4px 10px #00000040;

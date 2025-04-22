@@ -1,0 +1,39 @@
+@use 'styles/variables';
+
+@mixin square($size) {
+    width: $size;
+    height: $size;
+}
+
+.user {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+    gap: 10px;
+
+
+
+    &__img {
+        @include square(200px);
+        border-radius: 50%;
+        object-fit: cover;
+        object-position: center;
+        overflow: hidden;
+    }
+
+    &__info {
+        display: flex;
+        flex-direction: column;
+        width: 30vw;
+        min-width: 200px;
+        background-color: white;
+        padding: 20px;
+        border-radius: var(--border-radius);
+        gap: var(--space-s);
+    }
+
+    &-button {
+        padding: 0 30px;
+    }
+}

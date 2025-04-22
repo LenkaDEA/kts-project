@@ -5,7 +5,6 @@ import parse from 'html-react-parser';
 import InfiniteScroll from 'react-infinite-scroller';
 
 import styles from './RecipeListContainer.module.scss';
-import Button from "components/Button";
 import RecipeListActions from "./components/RecipeListActions";
 import Card from "components/Card";
 import TimerIcon from "components/icons/TimerIcon";
@@ -55,7 +54,6 @@ const RecipeListContainer: React.FC = () => {
                             title={item.name}
                             subtitle={parse(item.summary)}
                             contentSlot={`${item.calories}kcal`}
-                            actionSlot={<Button>Save</Button>}
                             onClick={() => navigate(`/recipe/${item.documentId}`)}
                             captionSlot={
                                 <div className={styles[`recipe-box__recipes-list_total-time`]}>
