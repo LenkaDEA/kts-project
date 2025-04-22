@@ -1,0 +1,34 @@
+@use 'styles/variables';
+
+.navbar {
+    height: 64px;
+    background-color: var(--bg-items);
+
+    padding-left: 10vw;
+    padding-right: 10vw;
+
+    display: flex;
+    gap: var(--space-l);
+    align-items: center;
+    justify-content: space-between;
+
+
+
+    &__logo {
+        display: flex;
+        gap: var(--space-l);
+        align-items: center;
+    }
+
+    &__conteiner {
+        display: flex;
+        gap: var(--space-m);
+        align-items: center;
+    }
+
+    &__users-icons {
+        display: flex;
+        gap: var(--space-m);
+        align-items: center;
+    }
+}

@@ -1,0 +1,33 @@
+@use 'styles/variables';
+
+.pagination {
+    display: flex;
+    gap: 8px;
+    width: 280px;
+    justify-content: center;
+
+    &__dots {
+        padding: 12px 12px;
+    }
+
+    &__active {
+        width: 38px;
+        height: 42px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: var(--brand);
+        color: #fff;
+        cursor: default;
+    }
+
+    &__page {
+        width: 38px;
+        height: 42px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: transparent;
+        cursor: pointer;
+    }
+}

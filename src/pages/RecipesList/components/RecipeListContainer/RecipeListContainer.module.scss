@@ -1,0 +1,44 @@
+@use 'styles/variables';
+
+.recipe-box {
+    padding-left: 10vw;
+    padding-right: 10vw;
+
+    &__recipes-list {
+        margin-top: var(--space-xxl);
+        width: 100vw;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 80px;
+        width: 100%;
+
+        &_total-time {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: var(--space-xxs);
+        }
+    }
+
+    &__pagination-container {
+        margin-top: var(--space-xxl);
+        margin-bottom: var(--space-xl);
+        display: flex;
+        gap: 18px;
+        justify-content: center;
+        align-items: center;
+        user-select: none;
+
+        &_button-pag {
+            background: transparent;
+            border: 0px;
+            cursor: pointer;
+
+            &_icon-rotate {
+                transform: scaleX(-1);
+            }
+        }
+
+
+    }
+}

@@ -1,0 +1,54 @@
+@use 'styles/variables';
+
+.recipe {
+    margin-top: var(--space-xxl);
+    margin-bottom: var(--space-xxl);
+    padding-left: 10vw;
+    padding-right: 10vw;
+
+    position: relative;
+
+    &__title {
+        display: flex;
+        gap: var(--space-m);
+        align-items: center;
+        margin-bottom: var(--space-xxl);
+    }
+
+    &__brief-info {
+        display: flex;
+        gap: var(--space-xxl);
+        align-items: center;
+
+        &_picture {
+            border-radius: var(--border-radius);
+            width: 448px;
+            height: 298px;
+        }
+    }
+
+    &__about {
+        background-color: #B5460F54;
+        border-radius: var(--border-radius);
+        margin-top: var(--space-xxl);
+        margin-bottom: var(--space-xxl);
+        padding: var(--space-xl);
+    }
+
+    &__directions {
+        margin-top: var(--space-xxl);
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-m);
+
+        &_title_directions {
+            margin-bottom: var(--space-xl);
+        }
+
+        &_step {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-xs);
+        }
+    }
+}

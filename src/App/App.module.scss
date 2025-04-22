@@ -1,0 +1,20 @@
+@use 'styles/variables';
+
+.app {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  &__background {
+    pointer-events: none;
+
+    &--container {
+      position: absolute;
+      pointer-events: none;
+      z-index: -1;
+      width: 100%;
+      display: flex;
+      justify-content: end;
+    }
+  }
+}

@@ -1,0 +1,23 @@
+.multi-dropdown {
+    position: relative;
+    width: 300px;
+
+    &__my-ul {
+        position: absolute;
+        width: 100%;
+        margin-top: var(--space-xxs);
+        background-color: var(--dropdown-options-bg);
+        margin-left: 0;
+        padding-left: 0;
+        z-index: 1000;
+        box-shadow: 0px 4px 10px #00000040;
+
+        &_my-li {
+            padding-top: var(--space-s);
+            padding-right: var(--space-xs);
+            padding-bottom: var(--space-s);
+            padding-left: var(--space-xs);
+            list-style-type: none;
+        }
+    }
+}

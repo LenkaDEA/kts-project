@@ -1,0 +1,42 @@
+.checkbox {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+
+    background-color: var(--checkbox-bg);
+    border: 1px solid var(--checkbox-border);
+
+    &:hover {
+        border: 1px solid var(--checkbox-border-hover);
+    }
+
+    &__disabled {
+        background-color: var(--checkbox-border-disabled);
+        border: 1px solid transparent;
+
+        &:hover {
+            background-color: var(--checkbox-border-disabled);
+            border: 1px solid transparent;
+        }
+    }
+
+    &__input {
+        position: absolute;
+        opacity: 0;
+        width: 40px;
+        height: 40px;
+        margin: 0;
+        cursor: pointer;
+        z-index: 3;
+
+        &_icon {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            margin: -1px;
+            z-index: 2;
+        }
+    }
+}
