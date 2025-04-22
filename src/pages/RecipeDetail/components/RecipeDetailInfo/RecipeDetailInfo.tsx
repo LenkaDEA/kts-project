@@ -2,7 +2,9 @@ import React from "react";
 
 import Text from "components/Text";
 import styles from "./RecipeDetailInfo.module.scss"
-import { useRecipeInfoContext } from "pages/RecipeDetail/RecipeDetail";
+
+import RecipeDetailStore from "stores/local/RecipeDetailStore";
+import { observer } from "mobx-react-lite";
 
 type InfoItemType = {
     title: string;
@@ -10,16 +12,19 @@ type InfoItemType = {
     unit?: string;
 };
 
-const RecipeDetailInfo: React.FC = () => {
-    const recipeInfoContext = useRecipeInfoContext();
+export type RecipeDetailInfoParams = {
+    recipeDetailStore: RecipeDetailStore;
+};
+
+const RecipeDetailInfo: React.FC<RecipeDetailInfoParams> = ({ recipeDetailStore }) => {
 
     const InfoItem: InfoItemType[] = [
-        { title: "Preparation", value: recipeInfoContext.recipeCont.preparationTime, unit: " minutes" },
-        { title: "Cooking", value: recipeInfoContext.recipeCont.cookingTime, unit: " minutes" },
-        { title: "Total", value: recipeInfoContext.recipeCont.totalTime, unit: " minutes" },
-        { title: "Likes", value: recipeInfoContext.recipeCont.likes },
-        { title: "Servings", value: recipeInfoContext.recipeCont.servings, unit: " servings" },
-        { title: "Ratings", value: recipeInfoContext.recipeCont.rating },
+        { title: "Preparation", value: recipeDetailStore.list.data.preparationTime, unit: " minutes" },
+        { title: "Cooking", value: recipeDetailStore.list.data.cookingTime, unit: " minutes" },
+        { title: "Total", value: recipeDetailStore.list.data.totalTime, unit: " minutes" },
+        { title: "Likes", value: recipeDetailStore.list.data.likes },
+        { title: "Servings", value: recipeDetailStore.list.data.servings, unit: " servings" },
+        { title: "Ratings", value: recipeDetailStore.list.data.rating },
     ];
 
     return (<div className={styles[`info-grid`]}>
@@ -32,4 +37,4 @@ const RecipeDetailInfo: React.FC = () => {
     </div>)
 };
 
-export default RecipeDetailInfo;
+export default observer(RecipeDetailInfo);

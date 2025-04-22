@@ -3,14 +3,27 @@
 .info-grid {
     display: grid;
     width: 100%;
-    grid-template-columns: repeat(3, 100px);
-    grid-template-rows: repeat(2, 50px);
-    gap: 100px;
+    box-sizing: border-box;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 50px;
 
     &__info-box {
         display: flex;
         flex-direction: column;
         gap: var(--space-xxs);
         align-items: center;
+        min-width: 100px
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .info-grid {
+        gap: 30px;
+        justify-content: center;
+
+        &__info-box {
+            gap: 4px;
+        }
     }
 }

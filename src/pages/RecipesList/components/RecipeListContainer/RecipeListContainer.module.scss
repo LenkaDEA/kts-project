@@ -3,9 +3,20 @@
 .recipe-box {
     padding-left: 10vw;
     padding-right: 10vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    min-height: 100vh;
+
+    &__loader {
+        display: flex;
+        align-content: center;
+    }
 
     &__recipes-list {
         margin-top: var(--space-xxl);
+        margin-bottom: var(--space-xxl);
         width: 100vw;
         display: grid;
         grid-template-columns: repeat(3, 1fr);
@@ -19,26 +30,13 @@
             gap: var(--space-xxs);
         }
     }
+}
 
-    &__pagination-container {
-        margin-top: var(--space-xxl);
-        margin-bottom: var(--space-xl);
-        display: flex;
-        gap: 18px;
-        justify-content: center;
-        align-items: center;
-        user-select: none;
+@media screen and (max-width: 768px) {
+    .recipe-box {
+        &__recipes-list {
+            grid-template-columns: repeat(1, 1fr);
 
-        &_button-pag {
-            background: transparent;
-            border: 0px;
-            cursor: pointer;
-
-            &_icon-rotate {
-                transform: scaleX(-1);
-            }
         }
-
-
     }
 }

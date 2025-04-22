@@ -1,48 +1,35 @@
 import styles from './App.module.scss';
 import NavBar from 'App/components/NavBar';
 import { Outlet } from 'react-router-dom';
-import React, { useState, createContext, Dispatch, SetStateAction } from 'react';
 
-import 'styles/styles.scss'
+import 'styles/styles.scss';
+import { useQueryParamsStoreInit } from 'stores/global/hooks/useQueryParamsStoreInit';
+import { useRecipesStore } from 'stores/global/hooks/useRecipesStore';
+import { useSearchFilterText } from 'stores/global/hooks/useSearchFilterText';
+import { useCategoriesChooseStore } from 'stores/global/hooks/useCategoriesChooseStore';
+import { useConnector } from 'stores/global/hooks/useConnector';
 
-export interface Recipe {
-  documentId: number,
-  name: string,
-  calories: number,
-  summary: string,
-  images: Images[],
-  totalTime: number
-}
-
-export interface Images {
-  url: string
-}
-
-export interface ApiContextType {
-  recipes: Recipe[];
-  setRecipes: Dispatch<SetStateAction<Recipe[]>>;
-}
-
-export const ApiContext = createContext<ApiContextType>({
-  recipes: [],
-  setRecipes: () => { }
-});
 
 const App: React.FC = () => {
-  const [recipes, setRecipes] = useState<Recipe[]>([]);
+  useQueryParamsStoreInit();
+  useRecipesStore();
+  useSearchFilterText();
+  useCategoriesChooseStore();
+  useConnector();
+
+  const mediaQuery = window.matchMedia('(min-width: 768px)');
+
   return (
-    <ApiContext.Provider value={{ recipes, setRecipes }}>
-      <div className={styles.app}>
-        <div className={styles[`app__background--container`]}>
-          <img
-            className={styles.app__background}
-            src='src/assets/bgrecipe.svg'
-          />
-        </div>
-        <NavBar />
-        <Outlet />
-      </div>
-    </ApiContext.Provider>
+    <div className={styles.app}>
+      {mediaQuery.matches && <div className={styles[`app__background--container`]}>
+        <img
+          className={styles.app__background}
+          src='src/assets/bgrecipe.svg'
+        />
+      </div>}
+      <NavBar />
+      <Outlet />
+    </div>
 
   );
 };
