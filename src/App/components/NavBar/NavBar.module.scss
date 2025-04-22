@@ -1,5 +1,11 @@
 @use 'styles/variables';
 
+@mixin flex-centered {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .navbar {
     position: fixed;
     top: 0;
@@ -19,9 +25,8 @@
     z-index: 100;
 
     &__logo {
-        display: flex;
+        @include flex-centered;
         gap: var(--space-l);
-        align-items: center;
         text-decoration: none;
         cursor: pointer;
     }
@@ -32,27 +37,17 @@
         align-items: center;
 
         &_text {
-            text-decoration: none !important;
+            text-decoration: none;
         }
     }
 
     &__actions {
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        @include flex-centered;
         gap: var(--space-m);
 
         &_link {
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            @include flex-centered;
         }
-    }
-
-    &__users-icons {
-        display: flex;
-        gap: var(--space-m);
-        align-items: center;
     }
 
     &__menu {

@@ -22,13 +22,3 @@
 
     }
 }
-
-@media screen and (max-width: 450px) {
-    .actions {
-        &__categories {
-            &_multidrop {
-                width: 100% !important;
-            }
-        }
-    }
-}

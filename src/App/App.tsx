@@ -9,6 +9,7 @@ import { useSearchFilterText } from 'stores/global/hooks/useSearchFilterText';
 import { useCategoriesChooseStore } from 'stores/global/hooks/useCategoriesChooseStore';
 import { useConnector } from 'stores/global/hooks/useConnector';
 import { useAuthStore } from 'stores/global/hooks/useAuthStore';
+import { DEVICE_BREAKPOINTS } from 'config/deviceBreakpoints';
 
 
 const App: React.FC = () => {
@@ -19,7 +20,7 @@ const App: React.FC = () => {
   useConnector();
   useAuthStore();
 
-  const mediaQuery = window.matchMedia('(min-width: 768px)');
+  const mediaQuery = window.matchMedia(DEVICE_BREAKPOINTS.DESKTOP);
 
   return (
     <div className={styles.app}>

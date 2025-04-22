@@ -6,26 +6,32 @@ import { makeObservable, observable, computed, action, runInAction } from 'mobx'
 import { GetAuthParams, IAuthStore } from './type';
 import { AUTH_ENDPOINT, BASE_URL, PRIVATE_FIELDS_AUTH, VALIDATE_ENDPOINT } from 'config/apiUrls';
 import { AuthDataApi, AuthDataModel, normalizeAuthData } from 'stores/models/auth/AuthData';
-import { normalizeUser, UserApi } from 'stores/models/auth/User';
+import { normalizeUser, UserApi, UserModel } from 'stores/models/auth/User';
+
+const setDefaultUser = (): UserModel => {
+    return {
+        id: 0,
+        username: '',
+        email: '',
+        provider: '',
+        confirmed: false,
+        blocked: false,
+        createdAt: '',
+        updatedAt: ''
+    };
+}
 
 export default class AuthStore implements IAuthStore, ILocalStore {
     private readonly _apiStore = new ApiStore(BASE_URL);
     private _user: AuthDataModel = {
         token: '',
-        user: {
-            id: 0,
-            username: '',
-            email: '',
-            provider: '',
-            confirmed: false,
-            blocked: false,
-            createdAt: '',
-            updatedAt: ''
-        }
+        user: setDefaultUser()
     };
     private _meta: Meta = Meta.initial;
     private _initialization: boolean = false;
     private _isAuthCheckComplete = false;
+
+
 
     constructor() {
         makeObservable<AuthStore, PRIVATE_FIELDS_AUTH>(this, {
@@ -105,20 +111,12 @@ export default class AuthStore implements IAuthStore, ILocalStore {
                         this._meta = Meta.error;
                         this._user = {
                             token: '',
-                            user: {
-                                id: 0,
-                                username: '',
-                                email: '',
-                                provider: '',
-                                confirmed: false,
-                                blocked: false,
-                                createdAt: '',
-                                updatedAt: ''
-                            }
+                            user: setDefaultUser()
                         };
                     }
+                } else {
+                    this._meta = Meta.error;
                 }
-                this._meta = Meta.error;
             })
         } catch (e) {
             this._meta = Meta.error;
@@ -156,16 +154,7 @@ export default class AuthStore implements IAuthStore, ILocalStore {
                         this._meta = Meta.error;
                         this._user = {
                             token: '',
-                            user: {
-                                id: 0,
-                                username: '',
-                                email: '',
-                                provider: '',
-                                confirmed: false,
-                                blocked: false,
-                                createdAt: '',
-                                updatedAt: ''
-                            }
+                            user: setDefaultUser()
                         };
                     }
                 }
@@ -198,16 +187,8 @@ export default class AuthStore implements IAuthStore, ILocalStore {
 
     reset(): void {
         this._user = {
-            token: '', user: {
-                id: 0,
-                username: '',
-                email: '',
-                provider: '',
-                confirmed: false,
-                blocked: false,
-                createdAt: '',
-                updatedAt: ''
-            }
+            token: '',
+            user: setDefaultUser()
         };
         this._meta = Meta.initial;
         this._initialization = false;

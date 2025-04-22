@@ -1,5 +1,10 @@
 @use 'styles/variables';
 
+@mixin square($size) {
+    width: $size;
+    height: $size;
+}
+
 .user {
     display: flex;
     flex-direction: column;
@@ -10,8 +15,7 @@
 
 
     &__img {
-        width: 200px;
-        height: 200px;
+        @include square(200px);
         border-radius: 50%;
         object-fit: cover;
         object-position: center;
@@ -30,7 +34,6 @@
     }
 
     &-button {
-        padding-left: 30px;
-        padding-right: 30px;
+        padding: 0 30px;
     }
 }

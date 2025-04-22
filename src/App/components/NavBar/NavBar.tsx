@@ -10,18 +10,25 @@ import MenuIcon from "components/icons/MenuIcon";
 import { Link, useLocation } from "react-router-dom";
 import rootStore from "stores/global";
 import { observer } from "mobx-react-lite";
+import { DEVICE_BREAKPOINTS } from "config/deviceBreakpoints";
 
 const NavBar: React.FC = () => {
 
-    const isDesktop = useMediaQuery('(min-width: 768px)');
+    const isDesktop = useMediaQuery(DEVICE_BREAKPOINTS.DESKTOP);
     const [isMenuOpen, setMenuOpen] = useState<boolean>(false);
     const wrapperRef = React.useRef<HTMLDivElement>(null);
     const location = useLocation();
     const urlSearch = rootStore.query.search;
 
     const handleClickMenu = () => {
-        isMenuOpen ? setMenuOpen(false) : setMenuOpen(true);
-    }
+        setMenuOpen(!isMenuOpen);
+    };
+
+    const handleLogoClick = () => {
+        rootStore.searchText.setSearchText('');
+        rootStore.categories.setCategoriesChoose([]);
+        window.location.replace('/');
+    };
 
     React.useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
@@ -50,11 +57,7 @@ const NavBar: React.FC = () => {
             <div
                 className={styles.navbar__logo}
 
-                onClick={() => {
-                    rootStore.searchText.setSearchText('');
-                    rootStore.categories.setCategoriesChoose([]);
-                    window.location.replace('/');
-                }}>
+                onClick={handleLogoClick}>
 
                 <img src={logo} />
                 <Text view="p-20" color="primary" weight="bold">Food Client</Text>

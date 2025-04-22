@@ -20,6 +20,11 @@ const RecipeListActions: React.FC = () => {
     const currentSearchText = rootStore.searchText.searchText;
     const categoryKeys = rootStore.categories.categories;
 
+    const handleClickClear = () => {
+        currentSearchText !== '' && rootStore.searchText.setSearchText('');
+        categoryKeys.length > 0 && rootStore.categories.setCategoriesChoose([]);
+    };
+
     useEffect(() => {
         categoriesStore.getCategories();
     }, [categoriesStore]);
@@ -46,10 +51,7 @@ const RecipeListActions: React.FC = () => {
                 }}
             >
             </Input>
-            <Button onClick={() => {
-                currentSearchText !== '' && rootStore.searchText.setSearchText('');
-                categoryKeys.length > 0 && rootStore.categories.setCategoriesChoose([]);
-            }}
+            <Button onClick={handleClickClear}
             ><ClearFiltersIcon /></Button>
         </div>
 

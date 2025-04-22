@@ -23,3 +23,9 @@
         }
     }
 }
+
+@media screen and (max-width: 450px) {
+    .multi-dropdown {
+        width: 100% !important;
+    }
+}
