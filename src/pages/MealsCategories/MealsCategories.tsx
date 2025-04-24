@@ -5,6 +5,7 @@ import styles from './MealsCategories.module.scss'
 import CategoriesStore from "stores/local/CategoriesStore";
 import { useLocalStore } from "stores/local/LocalStore";
 import Text from "components/Text";
+import { Link } from "react-router-dom";
 
 
 const MealsCategories: React.FC = () => {
@@ -19,9 +20,10 @@ const MealsCategories: React.FC = () => {
 
             <Text view="title">Meals Categories</Text>
             {categoriesStore.list.data.map(item => (
-                <div key={item.id} className={styles.meals__item}>
+                <Link key={item.id} to={{ pathname: '/', search: `categories=${item.id}` }} className={styles.meals__item}>
                     <Text key={item.id} view='p-20' >{item.title}</Text>
-                </div>))}
+                </Link>
+            ))}
         </div>
     );
 }

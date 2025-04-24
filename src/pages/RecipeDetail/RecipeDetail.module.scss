@@ -3,8 +3,8 @@
 .recipe {
     margin-top: var(--space-xxl);
     margin-bottom: var(--space-xxl);
-    padding-left: 1vw;
-    padding-right: 1vw;
+    padding-left: 20vw;
+    padding-right: 20vw;
 
     position: relative;
 
@@ -30,7 +30,11 @@
 
         &_picture {
             border-radius: var(--border-radius);
-            width: 35%;
+            // width: 35%;
+            // max-height: 300px;
+            width: 300px;
+            height: 200px;
+            object-fit: cover;
         }
 
         &-conteiner {
@@ -67,12 +71,14 @@
 
 @media screen and (max-width: 768px) {
     .recipe {
+        padding-left: 2vw;
+        padding-right: 2vw;
+
         &__brief-info {
             flex-direction: column;
 
             &_picture {
                 width: 100%;
-                height: 100%;
             }
         }
 
@@ -89,6 +95,9 @@
     .recipe {
         margin-top: 0px;
         color: black !important;
+
+        padding-left: 0;
+        padding-right: 0;
 
         &__title {
             margin: 10px;
