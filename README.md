@@ -1,54 +1,57 @@
-# React + TypeScript + Vite
+# Food client
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+[![Demo](https://img.shields.io/badge/Demo-GitHub%20Pages-blue?style=for-the-badge)](https://lenkadea.github.io/kts-project)
 
-Currently, two official plugins are available:
+SPA для поиска, просмотра и печати рецептов различных блюд. Позволяет пользователям находить рецепты по ключевым словам или категориям. Клиентская часть pet-проекта.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+*Этот pet-проект написан в рамках курса "Начинающий React-разработчик" от компании KTS.*
 
-## Expanding the ESLint configuration
+## Функционал
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+*   **Каталог рецептов:** Просмотр списка рецептов.
+*   **Поиск:** Поиск рецептов по ключевому слову.
+*   **Фильтрация по категориям:** Поиск рецептов по выбранной категории.
+*   **Бесконечная лента:** Автоматическая подгрузка рецептов при скролле.
+*   **Авторизация пользователя:** Возможность входа в систему.
+*   **Адаптивный интерфейс:** Корректное отображение на мобильных устройствах, планшетах и десктопах.
+*   **Печать рецептов:** Удобная функция для печати выбранного рецепта.
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## Скриншоты
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+![Главная страница со списком рецептов](/screenshots/home.png)
+*Главная страница со списком рецептов (бесконечный скролл)*
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+![Страница рецепта](/screenshots/recipe.png)
+*Страница детального просмотра рецепта с кнопкой печати*
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+## Технологический стек
+
+*   [![Vite](https://img.shields.io/badge/Vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/) - Сборка проекта
+*   [![React](https://img.shields.io/badge/React-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)](https://react.dev/) - Библиотека для UI
+*   [![MobX](https://img.shields.io/badge/MobX-%23FF9955.svg?style=for-the-badge&logo=mobx&logoColor=white)](https://mobx.js.org/) - Управление состоянием
+*   [![SASS](https://img.shields.io/badge/SASS-%23CC6699.svg?style=for-the-badge&logo=sass&logoColor=white)](https://sass-lang.com/) - Стилизация
+
+## Установка и Запуск
+
+1.  **Клонируйте репозиторий:**
+    ```bash
+    git clone https://github.com/lenkadea/kts-project.git
+    cd kts-project
+    ```
+2.  **Установите зависимости:**
+    ```bash
+    npm install
+    # или
+    yarn install
+    ```
+3.  **Запустите сервер разработки:**
+    ```bash
+    npm run dev
+    # или
+    yarn dev
+    ```
+4.  **Откройте в браузере:** Приложение будет доступно по адресу [http://localhost:5173/kts-project/](http://localhost:5173/kts-project/).
+
+## Лицензия
+
+Этот проект распространяется под лицензией [MIT](https://opensource.org/licenses/MIT).
