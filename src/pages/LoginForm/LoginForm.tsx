@@ -3,7 +3,7 @@ import rootStore from 'stores/global';
 import styles from './LoginForm.module.scss'
 import Input from 'components/Input';
 import Button from 'components/Button';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Text from 'components/Text';
 import { observer } from 'mobx-react-lite';
 import { autorun } from 'mobx';
@@ -58,6 +58,10 @@ const LoginForm: React.FC = () => {
                     Login
                 </Button>
             </form>
+            {/* <Button onClick={rootStore.auth.getRegisterAuth}>Reg</Button> */}
+            <Link to="/registration">
+                Registration
+            </Link>
         </div>
 
     );
