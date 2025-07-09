@@ -6,6 +6,7 @@ import LoginForm from "pages/LoginForm";
 import UserPage from "pages/UserPage";
 import ProtectedRoute from "components/ProtectedRoute";
 import MealsCategories from "pages/MealsCategories";
+import RegForm from "pages/RegForm";
 
 
 export const routesConfig: RouteObject[] = [
@@ -32,6 +33,10 @@ export const routesConfig: RouteObject[] = [
             {
                 path: '/login',
                 element: <LoginForm />
+            },
+            {
+                path: '/registration',
+                element: <RegForm />
             },
             {
                 path: '/my',
