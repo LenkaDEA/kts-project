@@ -3,8 +3,8 @@ import ApiStore, { HTTPMethod } from 'stores/local/ApiStore';
 import { Meta } from 'utils/meta'
 import { makeObservable, observable, computed, action, runInAction } from 'mobx';
 
-import { GetAuthParams, IAuthStore } from './type';
-import { AUTH_ENDPOINT, BASE_URL, PRIVATE_FIELDS_AUTH, VALIDATE_ENDPOINT } from 'config/apiUrls';
+import { GetAuthParams, GetRegisterAuth, IAuthStore } from './type';
+import { AUTH_ENDPOINT, BASE_URL, PRIVATE_FIELDS_AUTH, REGISTER_ENDPOINT, VALIDATE_ENDPOINT } from 'config/apiUrls';
 import { AuthDataApi, AuthDataModel, normalizeAuthData } from 'stores/models/auth/AuthData';
 import { normalizeUser, UserApi, UserModel } from 'stores/models/auth/User';
 
@@ -44,7 +44,9 @@ export default class AuthStore implements IAuthStore, ILocalStore {
             initialization: computed,
             isAuthCheckComplete: computed,
             reset: action,
+            resetMeta: action,
             getAuth: action,
+            getRegisterAuth: action,
             validateAuth: action,
             initializeAuth: action
         });
@@ -56,6 +58,11 @@ export default class AuthStore implements IAuthStore, ILocalStore {
 
     get meta(): Meta {
         return this._meta;
+    }
+
+    resetMeta() {
+        this._meta = Meta.initial;
+        console.log("resetMeta", this._meta);
     }
 
     get initialization(): boolean {
@@ -183,6 +190,63 @@ export default class AuthStore implements IAuthStore, ILocalStore {
                 this._isAuthCheckComplete = true;
             });
         }
+    }
+
+    async getRegisterAuth(
+        params: GetRegisterAuth
+
+    ): Promise<void> {
+        if (this._meta === Meta.loading) {
+            console.warn('Запрос уже выполняется');
+            return;
+        }
+
+        if (!params.email || !params.pass || !params.login) {
+            this._meta = Meta.error;
+            return;
+        }
+
+
+        this._meta = Meta.loading;
+
+        try {
+            const response = await this._apiStore.request<AuthDataApi>({
+                method: HTTPMethod.POST,
+                data: {
+                    username: params.login,
+                    email: params.email,
+                    password: params.pass
+                },
+                headers: {},
+                endpoint: REGISTER_ENDPOINT
+            });
+
+            runInAction(() => {
+                if (response.success) {
+                    try {
+                        this._meta = Meta.success;
+                        this._user = normalizeAuthData(response.data);
+                        localStorage.setItem('token', this._user.token);
+                        this._initialization = true;
+                        this._isAuthCheckComplete = true;
+                    }
+                    catch (e) {
+                        console.log(e);
+                        this._meta = Meta.error;
+                        this._user = {
+                            token: '',
+                            user: setDefaultUser()
+                        };
+                    }
+                } else {
+                    this._meta = Meta.error;
+                    console.log('Error', Meta.error)
+                }
+            })
+        } catch (e) {
+            this._meta = Meta.error;
+            console.error('Ошибка сети:', e);
+        };
     }
 
     reset(): void {
